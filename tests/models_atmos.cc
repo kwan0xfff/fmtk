@@ -1,7 +1,4 @@
-// ModelCases.cc -- reprsentative small test computations
-
-//#include "ModelCases.hh"
-
+// models_atmos.cc -- reprsentative small test computations
 
 #include <cmath>
 #include <cstdlib>      // includes abs()

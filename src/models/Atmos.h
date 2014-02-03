@@ -1,8 +1,7 @@
 // ================================================================
 //  class Atmos
-/**    Initial rudimentary model atmosphere code.
-    Uses standard atmosphere.
-*/
+//  Initial rudimentary model atmosphere code.
+//   Uses standard atmosphere.
 // ================================================================
 
 #ifndef _models_Atmos_h_
@@ -50,6 +49,5 @@ findAtmosProperties(
     AtmosPropRatios* ratios,    // ratios
     AtmosProperties* values     // values
 );
-
 
 #endif // _models_Atmos_h_
