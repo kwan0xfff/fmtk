@@ -6,7 +6,7 @@
 // data for baseline implementation
 #define _CART3F_DATA float elem[4]
 
-#include "cart3impl/Cart3f_defn.h"
+#include "Cart3f_defn.h"
 #include "cart3impl/Cart3f_baseline.h"
 
 #endif // _Cart3f_h_

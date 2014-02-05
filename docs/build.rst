@@ -80,8 +80,12 @@ For example, ``lib/libfmtkModels.dylib`` may point to the build of the
 fmtkModels library, which includes simple atmospheric modeling.  This
 particular location is specific to Mac OS X; a different naming convention
 involving ``.so`` files is used on Linux systems.
+
 In addition, the ``include/models`` may point to the models
 directory so that header files such as ``Atmos.h`` can be found.
+
+To exercise the ``math/cart3`` code,
+``include/math`` may point to the ``math`` directory.
 
 A later version of the build system will including deployment of libraries
 and header files into a staging area.
