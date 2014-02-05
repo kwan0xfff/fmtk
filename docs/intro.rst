@@ -3,8 +3,21 @@
 Introduction
 ============
 
-The "TK" in FMTK stands for ToolKit.  (Really, purpose of FMTK goes here.)
+FMTK is a toolkit for flight modeling or flight mechanics.
+At least, that is the general direction.
 
-FMTK is intended to run on UNIX-like platforms.
-Currently, this means Mac OS X and Linux systems.
-Eventually, it is intended to cross build for target embedded systems.
+The build and target platforms are currently Mac OS X and Linux.
+It is expected that platforms with a similar UNIX heritage would 
+also be suitable.
+
+FMTK provides an interface namespace for 3D Cartesian coordinate
+computation (``cart3``).
+The namespace may be implemented through a pure software solution, or
+through hardware-specific SIMD intrinsics.
+
+Currently, only a baseline software implementation of ``cart3`` is
+provided.
+
+To help maintain code quality, FMTK utilizes Google ``gtest`` to
+implement a series of unit tests for C++.
+
