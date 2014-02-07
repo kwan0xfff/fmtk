@@ -1,0 +1,67 @@
+#!/usr/bin/env python3
+#-*- coding: utf-8 -*-
+
+"""select_cart3 - Select implementation of Cart3 namespace.
+Currently, only Cart3f.h is generated for (single precision float).
+"""
+
+import sys
+
+TMPLT_CART3F = """\
+// Cart3f envelope for: ${impl}
+
+#ifndef _Cart3f_h_
+#define _Cart3f_h_
+
+#define _CART3F_DATA ${datadefn}
+
+#include "Cart3f_defn.h"
+#include "cart3impl/${implfile}"
+
+#endif // _Cart3f_h_
+"""
+
+MAP_CART3 = {
+  'baseline' : {
+    'data': 'float elem[4]',
+    'c3fimpl': 'Cart3f_baseline.h',
+  },
+  'sse2' : {
+    'data': '__m128',
+    'c3fimpl': 'Cart3f_sse.h',
+  },
+  'altivec' : {
+    'data': 'vector float',
+    'c3fimpl': 'Cart3f_altivec.h',
+  },
+  'neon' : {
+    'data': 'float32x4',
+    'c3fimpl': 'Cart3f_neon.h',
+  },
+}
+
+from string import Template
+
+def gen_header(c3impl):
+    "Generate header file(s) for Cart3 namespace based on selection 'c3impl'."
+    c3map = MAP_CART3[c3impl]
+
+    tmpl = Template(TMPLT_CART3F)
+    impl = tmpl.substitute(impl=c3impl,
+        datadefn=c3map['data'], implfile=c3map['c3fimpl'])
+    sys.stdout.write(impl)
+
+def main(argv):
+    """cmd: select_cart3 cart3key
+    option: cart3key - Cart3 implementation type, e.g., baseline, sse2, altivec.
+    """
+    cart3key = argv[1]
+    assert cart3key in MAP_CART3.keys(), "need valid cart3 key"
+    gen_header(cart3key)
+
+sys.exit(main(sys.argv))
+
+
+
+
+# vim: set sw=4 tw=80 :
