@@ -1,0 +1,106 @@
+#include "Timeval.h"
+
+static const int ZERO = 0;
+static const int MILLION = 1000000;
+static const int TWOMILLION = 2 * MILLION;
+
+// compound assignment operators
+
+Timeval&
+Timeval::operator += (const Timeval& tv)
+{
+    const struct timeval& ext = tv._v;
+
+    _v.tv_usec += ext.tv_usec;
+    if (_v.tv_usec >= MILLION) {
+        // Normalize so that _v.tv_usec < 1000000.
+        int remainder = _v.tv_usec % MILLION;
+
+        if (_v.tv_usec < TWOMILLION) {
+            _v.tv_sec += 1;
+        } else {
+            // This should only happen if "ext" not pre-normalized.
+            int quotient = _v.tv_usec / MILLION;
+            _v.tv_sec += quotient;
+        }
+        _v.tv_usec = remainder;
+    }
+    return *this;
+}
+
+Timeval&
+Timeval::operator -= (const Timeval& tv)
+{
+    const struct timeval& ext = tv._v;
+
+    if (_v.tv_usec < ext.tv_usec) {
+        _v.tv_sec -= 1;
+        _v.tv_usec += MILLION;
+    }
+    _v.tv_usec -= ext.tv_usec;
+    _v.tv_sec -= ext.tv_sec;
+    return *this;
+}
+
+// binary operators - additive
+
+const Timeval
+Timeval::operator + (const Timeval& tv) const
+{
+    const struct timeval& ext = tv._v;
+    Timeval tmp;
+
+    tmp._v.tv_usec = _v.tv_usec + ext.tv_usec;
+    if (tmp._v.tv_usec >= MILLION) {
+        // Normalize so that tmp._v.tv_usec < 1000000.
+        int remainder = tmp._v.tv_usec % MILLION;
+
+        if (tmp._v.tv_usec < TWOMILLION) {
+            tmp._v.tv_sec += 1;
+        } else {
+            // This should only happen if "ext" not pre-normalized.
+            int quotient = tmp._v.tv_usec / MILLION;
+            tmp._v.tv_sec += quotient;
+        }
+        tmp._v.tv_usec = remainder;
+    }
+    return tmp;
+}
+
+const Timeval
+Timeval::operator - (const Timeval& tv) const
+{
+    const struct timeval& ext = tv._v;
+    Timeval tmp;
+
+    if (_v.tv_usec < ext.tv_usec) {
+        tmp._v.tv_usec = _v.tv_usec + MILLION - ext.tv_usec;
+        tmp._v.tv_sec = _v.tv_sec - 1 - ext.tv_sec;
+    } else {
+        tmp._v.tv_usec = _v.tv_usec - ext.tv_usec;
+        tmp._v.tv_sec = _v.tv_sec - ext.tv_sec;
+    }
+    return tmp;
+}
+
+// comparison operators
+
+bool
+Timeval::operator == (const Timeval& tv) const
+{
+    const struct timeval& ext = tv._v;
+    bool result = (
+        (_v.tv_usec == ext.tv_usec) && (_v.tv_usec == ext.tv_usec));
+    return result;
+}
+
+bool
+Timeval::operator != (const Timeval& tv) const
+{
+    const struct timeval& ext = tv._v;
+    bool result = (
+        (_v.tv_usec != ext.tv_usec) || (_v.tv_usec != ext.tv_usec));
+
+    return result;
+}
+
