@@ -18,7 +18,7 @@ ifeq ($(KERNEL),Linux)
     ENV_LIBPATH = LD_LIBRARY_PATH
     GTEST_DIR := $(HOME)/Tools/gtest
 endif
-FMTKROOT = $(shell cd ..; pwd)
+BUILDROOT = $(shell cd ..; pwd)
 
 .SUFFIXES: .o .cc
 
@@ -31,12 +31,12 @@ FMTKROOT = $(shell cd ..; pwd)
 
 # USER DEFINED PATHS HERE
 ifeq ($(KERNEL),Darwin)
-    INCLS = -I/usr/local/include -I$(FMTKROOT)/conf/dep/include
-    LIBS = -L/usr/local/lib -L$(FMTKROOT)/conf/dep/lib
+    INCLS = -I/usr/local/include -I$(BUILDROOT)/conf/dep/include
+    LIBS = -L/usr/local/lib -L$(BUILDROOT)/conf/dep/lib
 endif
 ifeq ($(KERNEL),Linux)
-    INCLS = -I$(FMTKROOT)/conf/dep/include
-    LIBS = -L$(FMTKROOT)/conf/dep/lib
+    INCLS = -I$(BUILDROOT)/conf/dep/include
+    LIBS = -L$(BUILDROOT)/conf/dep/lib
 endif
 
 

@@ -22,9 +22,9 @@ TESTS = $(simple_TESTS) $(models_TESTS) $(math_TESTS) $(utils_TESTS)
 
 LIBS += -lgtest -lgtest_main
 $(models_TESTS) : LIBS += -lfmtkModels
-models_LIBPATH = $(ENV_LIBPATH)=$(FMTKROOT)/conf/dep/lib
+models_LIBPATH = $(ENV_LIBPATH)=$(BUILDROOT)/conf/dep/lib
 $(utils_TESTS) : LIBS += -lfmtkUtils
-utils_LIBPATH = $(ENV_LIBPATH)=$(FMTKROOT)/conf/dep/lib
+utils_LIBPATH = $(ENV_LIBPATH)=$(BUILDROOT)/conf/dep/lib
 
 LDFLAGS =
 
