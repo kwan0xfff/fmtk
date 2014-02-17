@@ -1,0 +1,13 @@
+# tksrc - Link to toolkit source.
+
+This file should not exist in the source tree.
+
+This toolkit is being redesigned to support builds of multiple targets
+from a common source tree (i.e., the one in which this file is found).
+However, the multi-target quickstart tools are not yet working.
+
+To allow work in this tree until the tools are working, perform a
+symlink from 'tksrc' to this directory.  That is,
+    $ ln -s . tksrc
+
+
