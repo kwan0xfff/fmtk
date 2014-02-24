@@ -1,5 +1,12 @@
+# Editor backup and lock files
+.*.swp
+
+# Object files and libraries
 *.o
 *.dylib
 *.so
-*.t
+*.a
 __pycache__
+
+# Executables
+*.t
