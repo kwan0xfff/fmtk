@@ -10,7 +10,7 @@ models_SRCS = models_atmos.cc
 models_OBJS = $(models_SRCS:.cc=.o)
 models_TESTS = $(models_SRCS:.cc=.t)
 
-math_SRCS = math_cart_baseline.cc
+math_SRCS = math_cart_baseline.cc math_cart_mat33_baseline.cc
 math_OBJS = $(math_SRCS:.cc=.o)
 math_TESTS = $(math_SRCS:.cc=.t)
 
@@ -47,6 +47,7 @@ tests_pass:
 	$(models_LIBPATH) ./models_atmos.t
 	$(utils_LIBPATH) ./utils_time.t
 	./math_cart_baseline.t
+	./math_cart_mat33_baseline.t
 
 tests_fail:	# show what test failure looks like
 	./simple_unitfail.t
