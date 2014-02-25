@@ -7,7 +7,7 @@
 #ifndef _cart3_Mat33f_defn_h_
 #define _cart3_Mat33f_defn_h_
 
-#include "math/cart3f.h"
+#include "math/Cart3f.h"
 
 namespace cart3 {
 
