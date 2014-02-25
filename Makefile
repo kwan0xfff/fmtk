@@ -15,3 +15,8 @@ conf/dep/include conf/dep/lib :
 	@echo Build requires conf/conf.mk and associated symlinks.
 	@echo You may find tools/fmtk-qs handy for a quick start.
 	@exit 1
+
+dotests :
+	cd tests; ${MAKE} tests
+
+
