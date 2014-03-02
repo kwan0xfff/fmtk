@@ -1,6 +1,7 @@
 # tests Makefile
 
 include ../conf/conf.mk
+CONF_INCL = ../conf/dep/include
 
 simple_SRCS = simple_unitpass.cc simple_unitfail.cc
 simple_OBJS = $(simple_SRCS:.cc=.o)
@@ -55,4 +56,8 @@ tests_fail:	# show what test failure looks like
 clean:
 	-rm -f *.o
 	-rm -f $(TESTS)
+
+$(utils_OBJS) : ${CONF_INCL}/utils/Timeval.h
+$(math_OBJS) : ${CONF_INCL}/math/Cart3f.h \
+	${CONF_INCL}/math/Cart3f_defn.h ${CONF_INCL}/math/Mat33f_defn.h
 
