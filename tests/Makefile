@@ -15,7 +15,7 @@ math_SRCS = math_cart_baseline.cc math_cart_mat33_baseline.cc
 math_OBJS = $(math_SRCS:.cc=.o)
 math_TESTS = $(math_SRCS:.cc=.t)
 
-utils_SRCS = utils_time.cc
+utils_SRCS = utils_time.cc utils_time_syscall.cc
 utils_OBJS = $(utils_SRCS:.cc=.o)
 utils_TESTS = $(utils_SRCS:.cc=.t)
 
@@ -43,12 +43,17 @@ all: $(TESTS)
 
 tests: $(TESTS) tests_pass
 
-tests_pass:
+tests_pass: tests_lvl1 tests_lvl2
+
+tests_lvl1:
 	./simple_unitpass.t
 	$(models_LIBPATH) ./models_atmos.t
-	$(utils_LIBPATH) ./utils_time.t
 	./math_cart_baseline.t
+	$(utils_LIBPATH) ./utils_time.t
+
+tests_lvl2:
 	./math_cart_mat33_baseline.t
+	$(utils_LIBPATH) ./utils_time_syscall.t
 
 tests_fail:	# show what test failure looks like
 	./simple_unitfail.t
