@@ -75,14 +75,14 @@ TEST(Timeval, BinAdd)
 
 TEST(Timeval, Compare)
 {
-    EXPECT_EQ(true, (tv_1_0 == tv_1_0));
-    EXPECT_EQ(true, (tv_1_0 != tv_2_5));
-    EXPECT_EQ(true, (tv_1_0 < tv_2_5));
-    EXPECT_EQ(true, (tv_1_0 <= tv_2_5));
+    EXPECT_TRUE(tv_1_0 == tv_1_0);
+    EXPECT_TRUE(tv_1_0 != tv_2_5);
+    EXPECT_TRUE(tv_1_0 < tv_2_5);
+    EXPECT_TRUE(tv_1_0 <= tv_2_5);
 
-    EXPECT_EQ(false, (tv_1_0 == tv_2_0));
-    EXPECT_EQ(false, (tv_1_0 != tv_1_0));
-    EXPECT_EQ(false, (tv_2_5 < tv_1_0));
-    EXPECT_EQ(false, (tv_2_5 <= tv_1_0));
+    EXPECT_FALSE(tv_1_0 == tv_2_0);
+    EXPECT_FALSE(tv_1_0 != tv_1_0);
+    EXPECT_FALSE(tv_2_5 < tv_1_0);
+    EXPECT_FALSE(tv_2_5 <= tv_1_0);
 }
 

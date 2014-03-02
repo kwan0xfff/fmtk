@@ -49,12 +49,14 @@ TEST(Timeval, UsageClock)
         ustart = Timeval(ru.ru_utime);
         sstart = Timeval(ru.ru_stime);
 
+        // compute load goes here
+
         getrusage(RUSAGE_SELF, &ru);
         ufinish = Timeval(ru.ru_utime);
         sfinish = Timeval(ru.ru_stime);
 
-        EXPECT_EQ(true, (ustart <= ufinish));
-        EXPECT_EQ(true, (sstart <= sfinish));
+        EXPECT_TRUE(ustart <= ufinish);
+        EXPECT_TRUE(sstart <= sfinish);
         cum_utime += (ufinish - ustart);
         cum_stime += (sfinish - sstart);
         if (i%10 == 0 && print_cum) {
