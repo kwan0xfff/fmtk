@@ -4,6 +4,14 @@ static const int ZERO = 0;
 static const int MILLION = 1000000;
 static const int TWOMILLION = 2 * MILLION;
 
+#if 0
+#include <stdio.h>
+static void print_timeval(const char* msg, const Timeval& tv)
+{
+    printf("%s %d.%06d\n", msg, tv.sec(), tv.usec());
+}
+#endif
+
 // compound assignment operators
 
 Timeval&
@@ -12,6 +20,7 @@ Timeval::operator += (const Timeval& tv)
     const struct timeval& ext = tv._v;
 
     _v.tv_usec += ext.tv_usec;
+    _v.tv_sec += ext.tv_sec;
     if (_v.tv_usec >= MILLION) {
         // Normalize so that _v.tv_usec < 1000000.
         int remainder = _v.tv_usec % MILLION;
@@ -50,7 +59,12 @@ Timeval::operator + (const Timeval& tv) const
     const struct timeval& ext = tv._v;
     Timeval tmp;
 
+    //print_timeval("+  this ", *this);
+    //print_timeval("+  other", tv);
+
     tmp._v.tv_usec = _v.tv_usec + ext.tv_usec;
+    tmp._v.tv_sec = _v.tv_sec + ext.tv_sec;
+
     if (tmp._v.tv_usec >= MILLION) {
         // Normalize so that tmp._v.tv_usec < 1000000.
         int remainder = tmp._v.tv_usec % MILLION;
@@ -64,6 +78,7 @@ Timeval::operator + (const Timeval& tv) const
         }
         tmp._v.tv_usec = remainder;
     }
+    //print_timeval("+ result", tmp);
     return tmp;
 }
 
@@ -84,13 +99,12 @@ Timeval::operator - (const Timeval& tv) const
 }
 
 // comparison operators
-
 bool
 Timeval::operator == (const Timeval& tv) const
 {
     const struct timeval& ext = tv._v;
     bool result = (
-        (_v.tv_usec == ext.tv_usec) && (_v.tv_usec == ext.tv_usec));
+        (_v.tv_sec == ext.tv_sec) && (_v.tv_usec == ext.tv_usec));
     return result;
 }
 
@@ -100,6 +114,42 @@ Timeval::operator != (const Timeval& tv) const
     const struct timeval& ext = tv._v;
     bool result = (
         (_v.tv_usec != ext.tv_usec) || (_v.tv_usec != ext.tv_usec));
+
+    return result;
+}
+
+bool
+Timeval::operator < (const Timeval& tv) const
+{
+    const struct timeval& ext = tv._v;
+    Timeval tmp;
+    bool result;
+
+    if (_v.tv_sec < ext.tv_sec) {
+        result = true;
+    } else if (_v.tv_sec > ext.tv_sec) {
+        result = false;
+    } else {    // _v.tv_sec == ext.tv_sec
+        result = (_v.tv_usec < ext.tv_usec) ? true : false ;
+    }
+
+    return result;
+}
+
+bool
+Timeval::operator <= (const Timeval& tv) const
+{
+    const struct timeval& ext = tv._v;
+    Timeval tmp;
+    bool result;
+
+    if (_v.tv_sec < ext.tv_sec) {
+        result = true;
+    } else if (_v.tv_sec > ext.tv_sec) {
+        result = false;
+    } else {    // _v.tv_sec == ext.tv_sec
+        result = (_v.tv_usec <= ext.tv_usec) ? true : false ;
+    }
 
     return result;
 }
