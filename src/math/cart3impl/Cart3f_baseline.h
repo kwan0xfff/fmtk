@@ -144,6 +144,17 @@ Cart3f::operator * (const Cart3f& v) const
     return tmp;
 }
 
+inline Cart3f
+operator * (const float s, const Cart3f& v)
+{
+    Cart3f tmp;
+    tmp.elem[0] = v.elem[0] * s;
+    tmp.elem[1] = v.elem[1] * s;
+    tmp.elem[2] = v.elem[2] * s;
+    return tmp;
+}
+
+
 // unary operators
 
 inline const Cart3f

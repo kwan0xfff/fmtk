@@ -90,6 +90,13 @@ TEST(MathCartBaseline, BinMult)
     EXPECT_EQ(result, Cart3f(1.5, 2.0, 2.5));
 }
 
+TEST(MathCartBaseline, BinMultSV)
+{
+    // friend: scalar * vector
+    Cart3f result = 2.0 * vector_345;
+    EXPECT_EQ(result, Cart3f(6.0, 8.0, 10.0));
+}
+
 TEST(MathCartBaseline, BinMultCross)
 {
     Cart3f result = vector_100 ^ vector_010;

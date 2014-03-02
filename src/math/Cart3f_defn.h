@@ -45,6 +45,7 @@ class Cart3f
     inline const Cart3f operator / (float s) const;
     inline const Cart3f operator ^ (const Cart3f& v) const; // cross product
     inline float operator * (const Cart3f& v) const;        // dot product
+    inline friend Cart3f operator * (const float s, const Cart3f& v); // dot product
 
     // unary operators
     inline const Cart3f operator - () const;
