@@ -1,4 +1,4 @@
-// math_cart_baseline.cc -- reprsentative small test computations
+// utils_time.cc -- reprsentative small test computations
 
 #include <cmath>
 #include <stdio.h>
@@ -6,15 +6,15 @@
 
 #include "utils/Timeval.h"
 
-static void print_timeval(Timeval& tv)
+static void print_timeval(const char* msg, Timeval& tv)
 {
-    printf("%d.%06d\n", tv.sec(), tv.usec());
+    printf("%s %d.%06d\n", msg, tv.sec(), tv.usec());
 }
 
-void print_timeval(const timeval& tv)
+void print_timeval(const char* msg, const timeval& tv)
 {
     Timeval xtv = tv;
-    print_timeval(xtv);
+    print_timeval(msg, xtv);
 }
 
 const Timeval tv_1_0 = Timeval(1, 0);
@@ -28,16 +28,17 @@ TEST(Timeval, First)
     Timeval a = Timeval(1, 2);
     EXPECT_EQ(a.sec(), 1);
     EXPECT_EQ(a.usec(), 2);
-    print_timeval(a);
+    print_timeval("1st", a);
 }
 
 TEST(Timeval, CompoundAsgnAdd)
 {
     Timeval sum =  tv_2_5;
     // simple add
-    sum += tv_1_0;
-    sum += tv_2_0;
     EXPECT_EQ(tv_2_5, Timeval(2, 500000));
+    sum += tv_1_0;
+    EXPECT_EQ(sum, Timeval(3, 500000));
+    sum += tv_2_0;
     EXPECT_EQ(sum, Timeval(5, 500000));
 
     Timeval diff = tv_2_5;
@@ -70,5 +71,18 @@ TEST(Timeval, BinAdd)
     result = tv_2_5 - tv_1_75;
     EXPECT_EQ(result, Timeval(0, 750000));
 
+}
+
+TEST(Timeval, Compare)
+{
+    EXPECT_EQ(true, (tv_1_0 == tv_1_0));
+    EXPECT_EQ(true, (tv_1_0 != tv_2_5));
+    EXPECT_EQ(true, (tv_1_0 < tv_2_5));
+    EXPECT_EQ(true, (tv_1_0 <= tv_2_5));
+
+    EXPECT_EQ(false, (tv_1_0 == tv_2_0));
+    EXPECT_EQ(false, (tv_1_0 != tv_1_0));
+    EXPECT_EQ(false, (tv_2_5 < tv_1_0));
+    EXPECT_EQ(false, (tv_2_5 <= tv_1_0));
 }
 
