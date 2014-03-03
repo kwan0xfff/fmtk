@@ -1,4 +1,4 @@
-// math_cart_baseline.cc -- reprsentative small test computations
+// math_cart_mat33_baseline.cc -- representative small test computations
 
 #include <cmath>
 #include <stdio.h>

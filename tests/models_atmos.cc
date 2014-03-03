@@ -1,4 +1,4 @@
-// models_atmos.cc -- reprsentative small test computations
+// models_atmos.cc -- representative small test computations
 
 #include <cmath>
 #include <cstdlib>      // includes abs()
