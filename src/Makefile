@@ -2,7 +2,7 @@
 
 include ../conf/conf.mk
 
-SUBDIRS = models utils
+SUBDIRS = math models utils
 
 all clean :
 	for subdir in $(SUBDIRS); do \
