@@ -33,7 +33,7 @@ def providedir(dirpath):
     """
     if not os.path.exists(dirpath):
         os.makedirs(dirpath)
-        print ("Directory '%s' created." % dirpath)
+        print("Directory '%s' created." % dirpath)
 
 def add_local_dep(confspec):
     "Add local project relative paths."
@@ -44,7 +44,7 @@ def add_local_dep(confspec):
     links['include/utils'] = "../../../tksrc/src/utils"
 
     so_suffix = confspec['so-suffix']
-    for module in ( 'Models', 'Utils' ):
+    for module in ('Models', 'Utils'):
         lib_so = 'libfmtk%s.%s' % (module, so_suffix)
         subdir = module.lower()
         links['lib/' + lib_so] = "../../../src/%s/%s" % (subdir, lib_so)
@@ -59,8 +59,8 @@ def parseargs(argv, spec):
 
     try:
         (opts, args) = getopt(argv[1:], 'r:g:G:s:m:hq',
-            [ 'buildroot', 'gtestinclude', 'gtestlib',
-              'so-suffix', 'mathimpl', 'help', 'quick' ])
+            ['buildroot', 'gtestinclude', 'gtestlib',
+             'so-suffix', 'mathimpl', 'help', 'quick'])
     except GetoptError as ex:
         #print ("error: %s" % str(ex), file=sys.stderr)
         sys.exit(1)
@@ -69,11 +69,13 @@ def parseargs(argv, spec):
         if   opt == '-r' or opt == '--buildroot':
             paths['build'] = arg
         elif opt == '-g' or opt == '--gtestinclude':
-            links['gtestinclude'] = arg
+            links['include/gtest'] = arg + '/gtest'
         elif opt == '-G' or opt == '--gtestlib':
-            links['gtestlib'] = arg
+            libpath = arg
+            for lib in ('libgtest.a', 'libgtest_main.a'):
+                links['lib/' + lib] = libpath + '/' + lib
         elif opt == '-s' or opt == '--so-suffix':
-            links['so-suffix'] = arg
+            spec['so-suffix'] = arg
         #elif opt == '-m' or opt == '--mathimpl':
         #    spec['cart3mpl-'] = arg
         elif opt == '-h' or opt == '--help':
@@ -88,22 +90,21 @@ def query(confspec):
     paths = confspec['paths']
     links = confspec['links']
 
-    print ("root path discovered at", paths['fmtkroot'])
-
     print ("Please enter values for the following settings.")
     print ("(Press Enter to accept a default, if available.)")
 
     # Target build path
-    default = paths['fmtkroot'] + '/build'
+    # default = paths['fmtkroot'] + '/build'    # proper default
+    default = paths['fmtkroot']                 # workaround
     response = input('Target build path (%s): ' % default)
     paths['build'] = (response, default)[response=='']
     #print ('path:', paths['build'])
 
     # GTest paths
     print ('Google C++ test framework (GTest) paths')
-    inclpath = input('GTest include: ')
+    inclpath = input('GTest include (above gtest/gtest.h): ')
     links['include/gtest'] = inclpath + '/gtest'
-    libpath = input('GTest lib: ')
+    libpath = input('GTest lib (above libgtest.a): ')
     for lib in ('libgtest.a', 'libgtest_main.a'):
         links['lib/' + lib] = libpath + '/' + lib
 
@@ -119,8 +120,13 @@ def query(confspec):
     add_local_dep(confspec)
     provide(confspec)           # do it
 
+
 def quickstart(argv):
-    "Main quick start routine."
+    """Main quick start routine.
+    If using "-q", run something like:
+        fmtk-qs -q -r $(SRCTOP) -g $(GTEST)/include -G $(GTEST)/lib -s dylib
+    Otherwise, just enter command and add values interactively.
+    """
 
     confspec = {}
     confspec['paths'] = paths = {}
