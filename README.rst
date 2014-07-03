@@ -33,7 +33,7 @@ Documentation
 =============
 
 There is currently limited documentation, found in `docs`_.
-The introduction, in `docs/intro_`, gives the rationale for the project,
+The introduction, in `docs/intro`_, gives the rationale for the project,
 a high-level roadmap, and a bit about what to expect of the source code.
 Some guidance on building is provided in `docs/build`_ 
 
