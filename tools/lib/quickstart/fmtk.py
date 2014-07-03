@@ -44,7 +44,7 @@ def add_local_dep(confspec):
     links['include/utils'] = "../../../tksrc/src/utils"
 
     so_suffix = confspec['so-suffix']
-    for module in ('Models', 'Utils'):
+    for module in ('Math', 'Models', 'Utils'):
         lib_so = 'libfmtk%s.%s' % (module, so_suffix)
         subdir = module.lower()
         links['lib/' + lib_so] = "../../../src/%s/%s" % (subdir, lib_so)
