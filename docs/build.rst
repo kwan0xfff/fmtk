@@ -119,19 +119,32 @@ This is quite working.
 At the moment, builds work reliably in the original source tree.
 To make this work, at the top of the source tree:
 
-* Rename ``tksrc`` to something else like ``tksrc-orig``, e.g., ::
+* Rename ``tksrc`` to something else like ``tksrc-orig``,
+  and put in a symlink to the current directory.
+  , e.g., ::
 
     $ mv tksrc tksrc-orig
+    $ ln -s . tksrc
 
-* Find the Google c++ test framework ("gtest") root, determine the shared library type.
+* Find the Google c++ test framework ("gtest") root,
+  determine the shared library type (``dylib`` or ``so``).
   Then create the dependency tree using ``tools/fmtk-qs`` doing something like::
 
-    $ ./tools/fmtk-qs -q -r $(pwd) -g $(GTEST)/include -G $(GTEST)/lib -s dylib
+    $ ./tools/fmtk-qs -q -r $(pwd) -g ${GTEST}/include -G ${GTEST}/lib -s dylib
 
   Without ``-q``, the script will allow you to interactively enter the values.
+
+  Each symlink is listed as it is created.  You may see a "File exists" error.
+  It may be from running the command a second time.  In general, this should be safe.
+  But to be clean, get rid of the subdirectory ``conf/dep``.
 
 * Build it. ::
 
     $ make
 
+* Run the tests.  This is a quick way to get familiar with what is in the toolkit. ::
 
+    $ ( cd tests; make tests)
+
+  If all goes well, the tests all passed.
+  Of course, in development, usually that's not the case.  On to debugging...
