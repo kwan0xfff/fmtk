@@ -39,7 +39,7 @@ Fundmentally, this breaks down to the following tools:
 * GNU Make - make 3.81
 * Compiler toolchain -- one of
 
-  * Apple LLVM 5.0 (Mac OS X)
+  * Apple LLVM 5.1 (Mac OS X)
   * GCC 4.6.2 (Ubuntu)
 
 External libraries
@@ -106,5 +106,32 @@ course of action is:
 
     $ cd tests; make tests
 
+
+Workarounds and Special Notes
+=============================
+
+A quick-start script ``tools/fmtk-qs`` is being developed to help quickly
+get a usable build environment started.
+It is intended to enable builds in a separate directory.
+Within the build directory, ``tksrc`` would be a symlink to the source code.
+
+This is quite working.
+At the moment, builds work reliably in the original source tree.
+To make this work, at the top of the source tree:
+
+* Rename ``tksrc`` to something else like ``tksrc-orig``, e.g., ::
+
+    $ mv tksrc tksrc-orig
+
+* Find the Google c++ test framework ("gtest") root, determine the shared library type.
+  Then create the dependency tree using ``tools/fmtk-qs`` doing something like::
+
+    $ ./tools/fmtk-qs -q -r $(pwd) -g $(GTEST)/include -G $(GTEST)/lib -s dylib
+
+  Without ``-q``, the script will allow you to interactively enter the values.
+
+* Build it. ::
+
+    $ make
 
 
