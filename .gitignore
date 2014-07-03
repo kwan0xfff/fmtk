@@ -1,6 +1,9 @@
 # Editor backup and lock files
 .*.swp
 
+# HTML -- all generated from rST
+*.html
+
 # Object files and libraries
 *.o
 *.dylib
