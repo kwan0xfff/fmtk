@@ -1,6 +1,6 @@
 #include "Timeval.h"
 
-static const int ZERO = 0;
+//static const int ZERO = 0;
 static const int MILLION = 1000000;
 static const int TWOMILLION = 2 * MILLION;
 
