@@ -14,11 +14,11 @@ namespace cart3 {
 
 // basic constructors and destructors
 
-Cart3f::Cart3f() { }
+inline Cart3f::Cart3f() { }
 
-Cart3f::~Cart3f() { }
+inline Cart3f::~Cart3f() { }
 
-Cart3f::Cart3f(float s0, float s1, float s2)
+inline Cart3f::Cart3f(float s0, float s1, float s2)
 {
     elem[0] = s0; elem[1] = s1; elem[2] = s2;
 }

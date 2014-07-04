@@ -9,13 +9,14 @@ namespace cart3 {
 
 // basic constructors and destructors
 
-Mat33f::Mat33f() { }
+inline Mat33f::Mat33f() { }
 
-Mat33f::~Mat33f() { }
+inline Mat33f::~Mat33f() { }
 
-Mat33f::Mat33f(float s00, float s01, float s02,
-               float s10, float s11, float s12,
-               float s20, float s21, float s22)
+inline Mat33f::Mat33f(
+        float s00, float s01, float s02,
+        float s10, float s11, float s12,
+        float s20, float s21, float s22)
 {
     vec[0][0] = s00; vec[0][1] = s01; vec[0][2] = s02; vec[0][3] = 0.0;
     vec[1][0] = s10; vec[1][1] = s11; vec[1][2] = s12; vec[1][3] = 0.0;
@@ -23,7 +24,7 @@ Mat33f::Mat33f(float s00, float s01, float s02,
 
 }
 
-Mat33f::Mat33f(Cart3f v0, Cart3f v1, Cart3f v2)
+inline Mat33f::Mat33f(Cart3f v0, Cart3f v1, Cart3f v2)
 {
     vec[0] = v0; vec[1] = v1; vec[2] = v2;
 }
