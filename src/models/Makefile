@@ -2,7 +2,7 @@
 
 include ../../conf/conf.mk
 
-SRCS = Atmos.cc
+SRCS = Atmos.cc FlightVehicle.cc SimpleMotion.cc
 OBJS = $(SRCS:.cc=.o)
 
 ifeq ($(KERNEL),Darwin)
