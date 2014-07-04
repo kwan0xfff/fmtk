@@ -6,7 +6,7 @@ SUBDIRS = src tests cmds
 
 all clean : conf_targets
 	for subdir in $(SUBDIRS); do \
-	    ( cd $$subdir; ${MAKE} $@; ) \
+	    ${MAKE} -C $$subdir $@ || exit $$?; \
 	done
 
 conf_targets : conf/dep/include conf/dep/lib
