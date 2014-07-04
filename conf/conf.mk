@@ -18,7 +18,12 @@ ifeq ($(KERNEL),Linux)
     ENV_LIBPATH = LD_LIBRARY_PATH
     GTEST_DIR := $(HOME)/Tools/gtest
 endif
-BUILDROOT = $(shell cd ..; pwd)
+#BUILDROOT = /path/to/buildarea/root
+#ifndef ($(BUILDROOT), undefined)
+ifndef BUILDROOT
+    $(info ** Define BUILDROOT in conf.mk or export from calling environment. **)
+    $(error BUILDROOT is undefined)
+endif
 
 .SUFFIXES: .o .cc
 
