@@ -19,19 +19,21 @@ ifeq ($(KERNEL),Linux)
     GTEST_DIR := $(HOME)/Tools/gtest
 endif
 #BUILDROOT = /path/to/buildarea/root
-#ifndef ($(BUILDROOT), undefined)
 ifndef BUILDROOT
     $(info ** Define BUILDROOT in conf.mk or export from calling environment. **)
     $(error BUILDROOT is undefined)
 endif
 
-.SUFFIXES: .o .cc
+.SUFFIXES: .o .cc .${DLSFX}
 
 .cc.o:
 	$(CXX) $(CXXFLAGS) $(DEFNS) $(INCLS) -c $<
 
 .o.:
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+.o.${DLSFX}:
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) $< -o $@ $(LIBS)
 
 
 # USER DEFINED PATHS HERE
