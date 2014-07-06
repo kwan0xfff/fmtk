@@ -45,10 +45,11 @@ atmos: atmostable
 
 
 flight1:
+	[ -e SimpleFlight.${DLSFX} ] || ln -s sim1scenarios/SimpleFlight.${DLSFX}
 	$(ENV):. ./flightsim SimpleFlight
 
 clean:
-	-rm -f *.o $(EXCS)		# execution code
+	-rm -f *.o $(EXCS) *.${DLSFX}	# execution code
 	-rm -f *.log atmos.txt		# runtime output
 	-rm -f Makefile.dep $(SIM1) ${SIM1SCEN}
 	make -C sim1engine clean
