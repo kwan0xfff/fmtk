@@ -24,7 +24,7 @@ ifndef BUILDROOT
     $(error BUILDROOT is undefined)
 endif
 
-.SUFFIXES: .o .cc .${DLSFX}
+.SUFFIXES: .o .cc
 
 .cc.o:
 	$(CXX) $(CXXFLAGS) $(DEFNS) $(INCLS) -c $<
@@ -32,8 +32,11 @@ endif
 .o.:
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
 
+ifdef DLSFX
+.SUFFIXES: .${DLSFX}
 .o.${DLSFX}:
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $< -o $@ $(LIBS)
+endif
 
 
 # USER DEFINED PATHS HERE
