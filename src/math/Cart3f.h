@@ -11,5 +11,6 @@
 #include "Mat33f_defn.h"
 #include "cart3impl/Cart3f_baseline.h"
 #include "cart3impl/Mat33f_baseline.h"
+#include "rotate3f.h"
 
 #endif // _Cart3f_h_

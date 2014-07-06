@@ -2,7 +2,7 @@
 
 include ../../conf/conf.mk
 
-SRCS = interpbilinear.cc
+SRCS = interpbilinear.cc rotate3f.cc
 OBJS = $(SRCS:.cc=.o)
 
 ifeq ($(KERNEL),Darwin)
@@ -25,4 +25,5 @@ clean:
 	-rm -f $(LIBNAME)
 
 interpbilinear.o : interpbilinear.h
+rotate3f.o : rotate3f.h
 
