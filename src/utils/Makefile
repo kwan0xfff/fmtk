@@ -2,7 +2,7 @@
 
 include ../../conf/conf.mk
 
-SRCS = Timeval.cc
+SRCS = Timeval.cc Writer.cc
 OBJS = $(SRCS:.cc=.o)
 
 ifeq ($(KERNEL),Darwin)
@@ -25,4 +25,5 @@ clean:
 	-rm -f $(LIBNAME)
 
 Timeval.o : Timeval.h
+Writer.o : Writer.h
 
