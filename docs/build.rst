@@ -40,7 +40,14 @@ Fundmentally, this breaks down to the following tools:
 * Compiler toolchain -- one of
 
   * Apple LLVM 5.1 (Mac OS X)
-  * GCC 4.6.2 (Ubuntu)
+  * GCC 4.6.x or 4.7.x (Ubuntu)
+
+To use the ``fmtk-qs`` quick-start script, you will also need:
+
+* Python 3
+
+See below under *Workarounds and special notes* for guidance on the
+script.
 
 External libraries
 ------------------
@@ -110,20 +117,20 @@ course of action is:
 Workarounds and Special Notes
 =============================
 
-A quick-start script ``tools/fmtk-qs`` is being developed to help quickly
-get a usable build environment started.
-It is intended to enable builds in a separate directory.
-Within the build directory, ``tksrc`` would be a symlink to the source code.
+Quick-start
+-----------
 
-This is quite working.
+A quick-start script ``tools/fmtk-qs``, written in Python 3,
+is being developed to help quickly get a usable build environment started.
+
+It is intended to enable builds in a separate directory,
+but this is not quite there yet.
 At the moment, builds work reliably in the original source tree.
-To make this work, at the top of the source tree:
 
-* Rename ``tksrc`` to something else like ``tksrc-orig``,
-  and put in a symlink to the current directory.
-  , e.g., ::
+To use it, at the top of the source tree:
 
-    $ mv tksrc tksrc-orig
+* Put in a symlink from ``tksrc`` to the current directory, e.g., ::
+
     $ ln -s . tksrc
 
 * Find the Google c++ test framework ("gtest") root,
@@ -138,6 +145,12 @@ To make this work, at the top of the source tree:
   It may be from running the command a second time.  In general, this should be safe.
   But to be clean, get rid of the subdirectory ``conf/dep``.
 
+* Export BUILDROOT as current directory (top of source tree), and
+  DLSFX as dynamic library suffix ("so" or "dylib"). ::
+
+    $ export BUILDROOT=$(pwd)
+    $ export DYSFX="so"
+
 * Build it. ::
 
     $ make
@@ -147,4 +160,10 @@ To make this work, at the top of the source tree:
     $ ( cd tests; make tests)
 
   If all goes well, the tests all passed.
-  Of course, in development, usually that's not the case.  On to debugging...
+  Of course, in development, usually that's not the case.
+
+  You can check out some sample and skeletal programs in the ``cmds`` directory.
+  The ``atmostable`` command is driven by ``make atmos``.
+  The ``flightsim`` command is very skeletal; is driven ``make flight1``.
+
+And now, on to debugging...
