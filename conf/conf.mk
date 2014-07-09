@@ -24,6 +24,8 @@ ifndef BUILDROOT
     $(error BUILDROOT is undefined)
 endif
 
+LIBS = -L/usr/local/lib -L$(BUILDROOT)/conf/dep/lib
+
 .SUFFIXES: .o .cc
 
 .cc.o:
@@ -31,6 +33,7 @@ endif
 
 .o.:
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+
 
 ifdef DLSFX
 .SUFFIXES: .${DLSFX}
