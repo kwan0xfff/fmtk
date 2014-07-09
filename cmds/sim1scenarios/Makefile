@@ -8,7 +8,7 @@ LIBS += -L$(BUILDROOT)/conf/dep/lib -lfmtkModels -lfmtkMath -lfmtkUtils
 MODULES=SimpleFlight
 
 ifeq ($(KERNEL),Darwin)
-    LDFLAGS = -dynamiclib -L../lib -lmath -lmodels
+    LDFLAGS = -dynamiclib
     CXXFLAGS += -ffast-math
 endif
 ifeq ($(KERNEL),Linux)
