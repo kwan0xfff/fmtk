@@ -7,7 +7,7 @@ SRCS = SimEngine.cc
 OBJS = $(SRCS:.cc=.o)
 
 ifeq ($(KERNEL),Darwin)
-    LDFLAGS += -dynamiclib
+    LDFLAGS += ${LIBS} -lfmtkUtils
     LIBNAME = libfmtkSim1.dylib
 endif
 ifeq ($(KERNEL),Linux)
