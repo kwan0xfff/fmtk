@@ -100,7 +100,7 @@ unsigned int
 SimEngine::run() {
 
     Writer* writer = new Writer();
-    writer->putmsg((const float)0.0, "veh1", "prolog", "start of new log");
+    writer->putmsg((const float)0.0, scenario, "prolog", "start of new log");
 
     string logname = string(scenario) + LOGSUFFIX;
     fLog = fopen(logname.c_str(), "w");
@@ -122,29 +122,21 @@ SimEngine::run() {
     scen->initcond();
     // INITIAL WRITE-OUT GOES HERE
     // initial step
-    writer->initLine(0.0, "veh1", "traj");
+    writer->initLine(0.0, scenario, "traj");
     writer->putCart3Head("x", "0", "1", "2");
     writer->putCart3Head("dx", "0", "1", "2");
     writer->putCart3Head("ddx", "0", "1", "2");
     writer->finiLine();
-#if 0
-    writer->initLine(0.0, "veh1", "SMLD");
-    writer->finiLine();
-#endif /*0*/
 
     while (scen->moresteps()) {
         scen->step();
         sms = scen->getSimpleMotion();
 
-        writer->initLine(sms->t, "veh1", "traj");
+        writer->initLine(sms->t, scenario, "traj");
         writer->putCart3fLine(sms->x);
         writer->putCart3fLine(sms->dx);
         writer->putCart3fLine(sms->ddx);
         writer->finiLine();
-#if 0
-        writer->initLine(sms->t, "veh1", "SMLD");
-        writer->finiLine();
-#endif /*0*/
 
         // INCREMENTAL WRITE-OUT GOES HERE
         // flight angles
