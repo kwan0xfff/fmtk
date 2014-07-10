@@ -7,7 +7,7 @@ KERNEL = $(shell uname)
 ifeq ($(KERNEL),Darwin)
     CXX := c++
     CXXFLAGS := -g -Wall -Werror -ffast-math
-    LDFLAGS := -dynamiclib -lc++
+    LDFLAGS := -lc++
     GTEST_DIR := $(HOME)/Tools/gtest
     ENV_LIBPATH = DYLD_LIBRARY_PATH
 endif
