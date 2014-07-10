@@ -21,7 +21,7 @@ endif
 LIBS +=
 
 atmostable : LIBS += -lfmtkModels
-flightsim : LIBS += -L. -lfmtkSim1 -lfmtkModels -lfmtkMath -lfmtkUtils -ldl
+flightsim : LIBS += -L. -lfmtkSim1 -ldl
 
 ENV = $(ENV_LIBPATH)=$(BUILDROOT)/conf/dep/lib
 
@@ -44,7 +44,7 @@ atmos: atmostable
 	$(ENV) ./atmostable atmos.txt
 
 
-flight1:
+flight1: flightsim
 	[ -e SimpleFlight.${DLSFX} ] || ln -s sim1scenarios/SimpleFlight.${DLSFX}
 	$(ENV):. ./flightsim SimpleFlight
 
