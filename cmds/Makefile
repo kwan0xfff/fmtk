@@ -21,7 +21,7 @@ endif
 LIBS +=
 
 atmostable : LIBS += -lfmtkModels
-flightsim : LIBS += -L. -lfmtkSim1 -ldl
+flightsim : LIBS += -L. -lfmtkSim1 -lfmtkUtils -ldl
 
 ENV = $(ENV_LIBPATH)=$(BUILDROOT)/conf/dep/lib
 
