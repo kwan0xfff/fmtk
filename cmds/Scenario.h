@@ -37,6 +37,7 @@ class Scenario {
     virtual void step() { }
     virtual bool moresteps() { return false; }
     virtual SimpleMotionState* getSimpleMotion() { return (SimpleMotionState*)0; };
+    virtual unsigned int putnow(unsigned int forcemask = 0) { return 0; }
 };
 
 typedef Scenario* scen_create_t();

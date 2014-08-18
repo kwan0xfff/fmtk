@@ -22,6 +22,11 @@
 
 using namespace std;
 
+// output flags; match with scenario implementation.
+#define PUT_TRAJ        0x0001
+#define PUT_AERO        0x0002
+#define PUT_ATMOS       0x0100
+#define PUT_GRAV        0x0200
 
 // n is file handle number
 void
@@ -127,16 +132,42 @@ SimEngine::run() {
     writer->putCart3Head("dx", "0", "1", "2");
     writer->putCart3Head("ddx", "0", "1", "2");
     writer->finiLine();
+    writer->initLine(0.0, scenario, "atmos");
+    vector<string> vs;
+    vs.push_back("h");
+    vs.push_back("pres");
+    vs.push_back("temp");
+    writer->putFloatHeads(vs);
+    //writer->finiLine();
 
     while (scen->moresteps()) {
         scen->step();
         sms = scen->getSimpleMotion();
+        unsigned int pflags = scen->putnow();
 
-        writer->initLine(sms->t, scenario, "traj");
-        writer->putCart3fLine(sms->x);
-        writer->putCart3fLine(sms->dx);
-        writer->putCart3fLine(sms->ddx);
-        writer->finiLine();
+        if (pflags & PUT_TRAJ) {
+            writer->initLine(sms->t, scenario, "traj");
+            writer->putCart3fLine(sms->x);
+            writer->putCart3fLine(sms->dx);
+            writer->putCart3fLine(sms->ddx);
+            writer->finiLine();
+        }
+        if (pflags & PUT_ATMOS) {
+            AtmosPropRatios ratios;
+            AtmosProperties props;
+
+            float h = sms->x[2];      // altitude
+            float altKm = h/1000.0;
+            findAtmosPropRatios(altKm, &ratios);
+            findAtmosProperties(&ratios, &props);
+            writer->initLine(sms->t, scenario, "atmos");
+            vector<float> vf;
+            vf.push_back(h);
+            vf.push_back(props.pressure);
+            vf.push_back(props.temperature);
+            writer->putFloatValues(vf);
+            //writer->finiLine();
+        }
 
         // INCREMENTAL WRITE-OUT GOES HERE
         // flight angles
