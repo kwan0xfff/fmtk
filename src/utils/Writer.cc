@@ -7,9 +7,9 @@
 using std::string;
 
 
-Writer::Writer()
+Writer::Writer(const char* logname)
 {
-    simlog.open("sim.log");
+    simlog.open(logname);
 }
 
 Writer::~Writer()

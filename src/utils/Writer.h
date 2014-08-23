@@ -63,7 +63,7 @@ class Writer {
     CSVData values;
 
   public:
-    Writer();
+    Writer(const char* logname="sim.log");
     ~Writer();
     // message lines start with time stamp, entity name, and data category
     void putmsg(const float tstamp, const string entity, const string catg, const string msg);
