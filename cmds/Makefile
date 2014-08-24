@@ -44,9 +44,17 @@ atmos: atmostable
 	$(ENV) ./atmostable atmos.txt
 
 
-flight1: flightsim
-	[ -e SimpleFlight.${DLSFX} ] || ln -s sim1scenarios/SimpleFlight.${DLSFX}
+flight1: flightsim SimpleFlight.${DLSFX}
 	$(ENV):. ./flightsim SimpleFlight
+
+SimpleFlight.${DLSFX} :
+	[ -e SimpleFlight.${DLSFX} ] || ln -s sim1scenarios/SimpleFlight.${DLSFX}
+
+drop1: flightsim SimpleDrop.${DLSFX}
+	$(ENV):. ./flightsim SimpleDrop
+
+SimpleDrop.${DLSFX} :
+	[ -e SimpleDrop.${DLSFX} ] || ln -s sim1scenarios/SimpleDrop.${DLSFX}
 
 clean:
 	-rm -f *.o $(EXCS) *.${DLSFX}	# execution code
