@@ -5,7 +5,7 @@ include ../../conf/conf.mk
 INCLS += -I..
 LIBS += -L$(BUILDROOT)/conf/dep/lib -lfmtkModels -lfmtkMath -lfmtkUtils
 
-MODULES=SimpleFlight
+MODULES=SimpleFlight SimpleDrop
 
 ifeq ($(KERNEL),Darwin)
     LDFLAGS = -dynamiclib
