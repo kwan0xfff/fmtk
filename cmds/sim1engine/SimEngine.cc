@@ -104,17 +104,9 @@ SimEngine::setScenario(const char* scenario_name) {
 unsigned int
 SimEngine::run() {
 
-    Writer* writer = new Writer();
+    string logname = string(scenario) + ".log";
+    Writer* writer = new Writer(logname.c_str());
     writer->putmsg((const float)0.0, scenario, "prolog", "start of new log");
-
-    string logname = string(scenario) + LOGSUFFIX;
-    fLog = fopen(logname.c_str(), "w");
-    setHandle(SimEngine::fnLog, fLog);
-    setHandle(SimEngine::fnOut, stdout);
-
-
-    fprintf(fLog, "output to log\n");
-    fprintf(stdout, "output to stdout\n");
 
     // Load the scenario module
     scen = loadScenario(scenario);
