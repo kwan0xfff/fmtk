@@ -17,6 +17,7 @@ if __name__ == '__main__':
     tksrcdir = dirname(toolsdir)
     if tksrcdir == '':
         tksrcdir = '.'
+    tksrcdir = abspath(tksrcdir)
     lib_qs = normpath(abspath(ospjoin(toolsdir, 'lib', 'quickstart')))
     if isdir(lib_qs):
         sys.path.insert(1, dirname(lib_qs))
