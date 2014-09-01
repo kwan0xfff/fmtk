@@ -17,6 +17,7 @@ def findpathwithchild(pathlist, childpath, limit=None):
     The return value would be '/this/path/lib'.
     The maximum number of parent directories to set is set by 'limit'.
     """
+    # TODO: may be dead code; was used by quickstart()
     #print ("pathlist", pathlist)
     childpath = os.path.normpath(childpath)
     for climbingpath in pathlist:
@@ -117,11 +118,8 @@ def query(confspec):
     print ("Cart3 math implementation; one of: " "baseline, sse2, msa, altivec, neon")
     confspec['cart3-impl'] = input('Cart3 implementation: ')
 
-    add_local_dep(confspec)
-    provide(confspec)           # do it
 
-
-def quickstart(argv):
+def quickstart(argv, tkroot):
     """Main quick start routine.
     If using "-q", run something like:
         fmtk-qs -q -r $(SRCTOP) -g $(GTEST)/include -G $(GTEST)/lib -s dylib
@@ -133,8 +131,10 @@ def quickstart(argv):
     confspec['links'] = links = {}
 
     print ("Welcome to FMTK quickstart.")
-    paths['fmtkroot'] = findpathwithchild(
-        (os.path.abspath('.'),), 'src/models', 3)
+    # TODO: may not need findpathwithchild()
+    #paths['fmtkroot'] = findpathwithchild(
+    #    (os.path.abspath('.'),), 'src/models', 3)
+    paths['fmtkroot'] = tkroot
     print ("root path discovered at", paths['fmtkroot'])
     parseargs(argv, confspec)
     if ('quick' not in confspec):
