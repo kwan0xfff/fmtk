@@ -8,10 +8,20 @@ import os, os.path
 import sys
 #import pdb              ### DEBUGGING
 
+def simplify_path(relpath):
+    """Simplify path, i.e., remove leading './'.
+    Does not handle '//'.
+    """
+    pp = relpath
+    while pp.startswith("./"):
+        pp = pp[2:]
+    return pp
+
 def add_dir(dirpath):
     """Make sure that directory 'dirpath' is available.
     Create it, if necessary.
     """
+    dirpath = simplify_path(dirpath)
     if not os.path.exists(dirpath):
         os.makedirs(dirpath)
         print("Directory '%s' created." % dirpath)
@@ -20,6 +30,7 @@ def add_link(source, linkpath):
     """Create a symbolic link from conf/def to linkpath.
     """
 
+    linkpath = simplify_path(linkpath)
     if os.path.exists(linkpath):
         print("file exists", linkpath)
     else:
@@ -32,6 +43,9 @@ def provide(spec):
     paths = spec['paths']
     links = spec['links']
 
+    if not paths['build'].startswith('/'):
+        # Need build path to be absolute.
+        paths['build'] = os.path.join (paths['fmtkroot'], paths['build'])
     add_dir(paths['build'])
     add_dir(paths['build'] + '/conf/dep')
     add_dir(paths['build'] + '/conf/dep/include')
@@ -42,6 +56,7 @@ def provide(spec):
         for linkname in links:
             src = links[linkname]
             add_link(src, deppath+'/'+linkname)
+        add_link(paths['fmtkroot'], os.path.join(paths['build'],'tksrc'))
     except OSError as err:
         print ("linkname:", linkname)
         print ("OS error: {0}".format(err))
