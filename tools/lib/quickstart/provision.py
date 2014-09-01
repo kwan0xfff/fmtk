@@ -8,20 +8,11 @@ import os, os.path
 import sys
 #import pdb              ### DEBUGGING
 
-def simplify_path(relpath):
-    """Simplify path, i.e., remove leading './'.
-    Does not handle '//'.
-    """
-    pp = relpath
-    while pp.startswith("./"):
-        pp = pp[2:]
-    return pp
-
 def add_dir(dirpath):
     """Make sure that directory 'dirpath' is available.
     Create it, if necessary.
     """
-    dirpath = simplify_path(dirpath)
+    dirpath = os.path.normpath(dirpath)
     if not os.path.exists(dirpath):
         os.makedirs(dirpath)
         print("Directory '%s' created." % dirpath)
@@ -30,7 +21,14 @@ def add_link(source, linkpath):
     """Create a symbolic link from conf/def to linkpath.
     """
 
-    linkpath = simplify_path(linkpath)
+    linkpath = os.path.normpath(linkpath)
+    cwd = os.getcwd()
+    if linkpath.endswith('tksrc'):
+        linkdir = os.path.dirname(linkpath)
+        if source in linkdir:
+            source = os.path.relpath(source, linkdir)
+    if cwd in linkpath:
+        linkpath = os.path.relpath(linkpath, cwd)
     if os.path.exists(linkpath):
         print("file exists", linkpath)
     else:
@@ -38,7 +36,7 @@ def add_link(source, linkpath):
         os.symlink(source, linkpath)
 
 def provide(spec):
-    """Provide resouces according to spec."""
+    """Provide resources according to spec."""
 
     paths = spec['paths']
     links = spec['links']
