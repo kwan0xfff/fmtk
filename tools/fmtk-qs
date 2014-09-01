@@ -13,15 +13,18 @@ import sys
 
 if __name__ == '__main__':
 
-    pgmdir = dirname(__file__)
-    lib_qs = normpath(abspath(ospjoin(pgmdir, 'lib', 'quickstart')))
+    toolsdir = dirname(__file__)
+    tksrcdir = dirname(toolsdir)
+    if tksrcdir == '':
+        tksrcdir = '.'
+    lib_qs = normpath(abspath(ospjoin(toolsdir, 'lib', 'quickstart')))
     if isdir(lib_qs):
         sys.path.insert(1, dirname(lib_qs))
 
     from quickstart import fmtk
 
     try:
-        result = fmtk.quickstart(sys.argv)
+        result = fmtk.quickstart(sys.argv, tksrcdir)
     except Exception as exc:
         print (exc)
         if hasattr(exc, 'args') and type(exc.args[0]) is int:
