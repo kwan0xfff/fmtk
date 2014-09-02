@@ -2,6 +2,9 @@
 
 include ../../conf/conf.mk
 
+vpath %.h  ../../tksrc/src/utils ../../conf/dep/include
+vpath %.cc ../../tksrc/src/utils
+
 SRCS = Timeval.cc Writer.cc
 OBJS = $(SRCS:.cc=.o)
 

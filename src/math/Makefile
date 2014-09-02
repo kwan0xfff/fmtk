@@ -2,6 +2,9 @@
 
 include ../../conf/conf.mk
 
+vpath %.h  ../../tksrc/src/math ../../conf/dep/include
+vpath %.cc ../../tksrc/src/math
+
 SRCS = interpbilinear.cc rotate3f.cc
 OBJS = $(SRCS:.cc=.o)
 

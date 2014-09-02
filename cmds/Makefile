@@ -3,6 +3,9 @@
 
 include ../conf/conf.mk
 
+vpath %.h  ../tksrc/cmds ../conf/dep/include
+vpath %.cc ../tksrc/cmds
+
 atmos_SRCS = atmostable.cc
 atmos_OBJS = $(atmos_SRCS:.cc=.o)
 

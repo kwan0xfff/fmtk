@@ -3,6 +3,9 @@
 include ../conf/conf.mk
 CONF_INCL = ../conf/dep/include
 
+vpath %.h  ../tksrc/tests
+vpath %.cc ../tksrc/tests
+
 simple_SRCS = simple_unitpass.cc simple_unitfail.cc
 simple_OBJS = $(simple_SRCS:.cc=.o)
 simple_TESTS = $(simple_SRCS:.cc=.t)

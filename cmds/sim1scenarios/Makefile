@@ -3,6 +3,10 @@
 
 include ../../conf/conf.mk
 INCLS += -I..
+
+vpath %.h  ../../tksrc/sim1scenarios ../../conf/dep/include
+vpath %.cc ../../tksrc/sim1scenarios
+
 LIBS += -L$(BUILDROOT)/conf/dep/lib -lfmtkModels -lfmtkMath -lfmtkUtils
 
 MODULES=SimpleFlight SimpleDrop

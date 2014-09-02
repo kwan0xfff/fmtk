@@ -2,6 +2,9 @@
 
 include ../../conf/conf.mk
 
+vpath %.h  ../../tksrc/src/models ../../conf/dep/include
+vpath %.cc ../../tksrc/src/models
+
 SRCS = Atmos.cc FlightVehicle.cc SimpleMotion.cc
 OBJS = $(SRCS:.cc=.o)
 

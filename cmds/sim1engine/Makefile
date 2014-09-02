@@ -3,6 +3,9 @@
 include ../../conf/conf.mk
 INCLS += -I..
 
+vpath %.h  ../../tksrc/cmds/sim1engine ../../conf/dep/include
+vpath %.cc ../../tksrc/cmds/sim1engine
+
 SRCS = SimEngine.cc
 OBJS = $(SRCS:.cc=.o)
 
