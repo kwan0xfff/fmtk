@@ -62,4 +62,28 @@ def provide(spec):
         print("Unexpected error:", sys.exc_info()[0])
         raise
 
+    if os.path.normpath(paths['build']) == os.path.normpath(paths['fmtkroot']):
+        return
+
+    print("Copy makefiles")
+    os.chdir(paths['fmtkroot'])
+    pathbuild = paths['build']
+    pathroot = paths['fmtkroot']
+    for topdir in ('conf', 'docs', 'src', 'tests', 'cmds', 'Makefile'):
+        for relpath, dirs, files in os.walk(topdir):
+            for fname in ('Makefile', 'conf.mk'):
+                if fname in files:
+                    src = os.path.join(pathroot, relpath, fname)
+                    trg = os.path.join(pathbuild, relpath, fname)
+                    trgdir = os.path.join(pathbuild, relpath)
+                    print ('...', trg)
+                    if not os.path.isdir(trgdir) and not os.path.exists(trgdir):
+                        os.makedirs(trgdir)
+                    os.symlink(src, trg)
+    fname = 'Makefile'  # get top-level Makefile
+    src = os.path.join(pathroot, fname)
+    trg = os.path.join(pathbuild, fname)
+    print ('...', trg)
+    os.symlink(src, trg)
+
 # vim: set sw=4 tw=80 :
