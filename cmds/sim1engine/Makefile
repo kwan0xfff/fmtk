@@ -1,7 +1,7 @@
 # Makefile for models
 
 include ../../conf/conf.mk
-INCLS += -I..
+INCLS += -I.. -I../../tksrc/cmds
 
 vpath %.h  ../../tksrc/cmds/sim1engine ../../conf/dep/include
 vpath %.cc ../../tksrc/cmds/sim1engine

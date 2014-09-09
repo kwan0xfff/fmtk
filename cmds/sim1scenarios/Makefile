@@ -2,10 +2,10 @@
 #
 
 include ../../conf/conf.mk
-INCLS += -I..
+INCLS += -I.. -I../../tksrc/cmds
 
-vpath %.h  ../../tksrc/sim1scenarios ../../conf/dep/include
-vpath %.cc ../../tksrc/sim1scenarios
+vpath %.h  ../../tksrc/cmds/sim1scenarios ../../conf/dep/include
+vpath %.cc ../../tksrc/cmds/sim1scenarios
 
 LIBS += -L$(BUILDROOT)/conf/dep/lib -lfmtkModels -lfmtkMath -lfmtkUtils
 
@@ -21,7 +21,7 @@ ifeq ($(KERNEL),Linux)
 endif
 DLMODS=$(MODULES:=.$(DLSFX))
 
-all: $(DLMODS) X15data.o
+all: $(DLMODS) # X15data.o
 
 X15data.c : X15data.py
 	python3 X15data.py > $@
