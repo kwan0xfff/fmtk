@@ -9,10 +9,10 @@ vpath %.cc ../tksrc/cmds
 atmos_SRCS = atmostable.cc
 atmos_OBJS = $(atmos_SRCS:.cc=.o)
 
-fltsim_SRCS = flightsim.cc
-fltsim_OBJS = $(fltsim_SRCS:.cc=.o)
+#fltsim_SRCS = flightsim.cc
+#fltsim_OBJS = $(fltsim_SRCS:.cc=.o)
 
-EXCS = atmostable flightsim
+EXCS = atmostable
 SIM1 = libfmtkSim1.$(DLSFX)
 SIM1SCEN = sim1scen.done
 ifndef DLSFX
@@ -24,45 +24,20 @@ endif
 LIBS +=
 
 atmostable : LIBS += -lfmtkModels
-flightsim : LIBS += -L. -lfmtkSim1 -lfmtkModels -lfmtkUtils -ldl
 
 ENV = $(ENV_LIBPATH)=$(BUILDROOT)/conf/dep/lib
 
-all: $(EXCS) $(SIM1) $(SIM1SCEN)
+all: $(EXCS)
 
 atmostable : atmostable.o
 	$(CXX) $(CXXFLAGS) -o $@ $< $(LDFLAGS) $(LIBS)
-flightsim : flightsim.o $(SIM1)
-	$(CXX) $(CXXFLAGS) -o $@ $< $(LDFLAGS) $(LIBS)
-
-$(SIM1) :
-	${MAKE} -C sim1engine -e DLSFX=${DLSFX} ${SIM1} || exit $$?
-	ln -s sim1engine/${SIM1}
-
-$(SIM1SCEN) :
-	${MAKE} -C sim1scenarios all || exit $$?
-	touch $(SIM1SCEN)
 
 atmos: atmostable
 	$(ENV) ./atmostable atmos.txt
 
 
-flight1: flightsim SimpleFlight.${DLSFX}
-	$(ENV):. ./flightsim SimpleFlight
-
-SimpleFlight.${DLSFX} :
-	[ -e SimpleFlight.${DLSFX} ] || ln -s sim1scenarios/SimpleFlight.${DLSFX}
-
-drop1: flightsim SimpleDrop.${DLSFX}
-	$(ENV):. ./flightsim SimpleDrop
-
-SimpleDrop.${DLSFX} :
-	[ -e SimpleDrop.${DLSFX} ] || ln -s sim1scenarios/SimpleDrop.${DLSFX}
-
 clean:
 	-rm -f *.o $(EXCS) *.${DLSFX}	# execution code
 	-rm -f *.log atmos.txt		# runtime output
-	-rm -f Makefile.dep $(SIM1) ${SIM1SCEN}
-	make -C sim1engine clean
-	make -C sim1scenarios clean
+	-rm -f Makefile.dep
 
