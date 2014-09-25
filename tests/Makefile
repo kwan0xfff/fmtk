@@ -10,7 +10,7 @@ simple_SRCS = simple_unitpass.cc simple_unitfail.cc
 simple_OBJS = $(simple_SRCS:.cc=.o)
 simple_TESTS = $(simple_SRCS:.cc=.t)
 
-models_SRCS = models_atmos.cc
+models_SRCS = models_atmos.cc models_motion.cc
 models_OBJS = $(models_SRCS:.cc=.o)
 models_TESTS = $(models_SRCS:.cc=.t)
 
@@ -54,6 +54,7 @@ tests_pass: tests_lvl1 tests_lvl2
 tests_lvl1:
 	./simple_unitpass.t
 	$(models_LIBPATH) ./models_atmos.t
+	$(models_LIBPATH) ./models_motion.t
 	$(math_LIBPATH) ./math_cart_baseline.t
 	$(utils_LIBPATH) ./utils_time.t
 
