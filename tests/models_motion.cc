@@ -83,7 +83,7 @@ TEST(Models, MotionSimp1)
     }
     ms = motion.getState();
 
-    EXPECT_LE(ms.x[0], 0.0);
-    EXPECT_LE(fabs(ms.x[2]-1200.0), epsM[5]);
+    EXPECT_EQ(ms.x[0], 0.0);
+    EXPECT_NEAR(ms.x[2], 1200.0, epsM[5]);
 }
 

@@ -35,14 +35,14 @@ TEST(Models, Atmos0)
     //printRatios(ratios);
     //printProperties (props);
 
-    EXPECT_LE(fabs(ratios.sigma-1.0), epsM[6]);
-    EXPECT_LE(fabs(ratios.delta-1.0), epsM[6]);
-    EXPECT_LE(fabs(ratios.theta-1.0), epsM[6]);
+    EXPECT_NEAR(ratios.sigma, 1.0, epsM[6]);
+    EXPECT_NEAR(ratios.delta, 1.0, epsM[6]);
+    EXPECT_NEAR(ratios.theta, 1.0, epsM[6]);
 
-    EXPECT_LE(fabs(props.temperature-288.1), epsM[1]);
-    EXPECT_LE(fabs(props.pressure-101325.0), epsM[0]);
-    EXPECT_LE(fabs(props.density-1.225), epsM[2]);
-    EXPECT_LE(fabs(props.asound-340.294), epsM[2]);
+    EXPECT_NEAR(props.temperature, 288.1, epsM[1]);
+    EXPECT_NEAR(props.pressure, 101325.0, epsM[0]);
+    EXPECT_NEAR(props.density, 1.225, epsM[2]);
+    EXPECT_NEAR(props.asound, 340.294, epsM[2]);
 }
 
 TEST(Models, Atmos5)
@@ -54,14 +54,14 @@ TEST(Models, Atmos5)
     findAtmosPropRatios(altKm, &ratios);
     findAtmosProperties(&ratios, &props);
 
-    EXPECT_LE(fabs(ratios.sigma-0.60117), epsM[5]);
-    EXPECT_LE(fabs(ratios.delta-0.53341), epsM[5]);
-    EXPECT_LE(fabs(ratios.theta-0.8873), epsM[5]);
+    EXPECT_NEAR(ratios.sigma, 0.60117, epsM[5]);
+    EXPECT_NEAR(ratios.delta, 0.53341, epsM[5]);
+    EXPECT_NEAR(ratios.theta, 0.8873, epsM[5]);
 
-    EXPECT_LE(fabs(props.temperature-255.675), epsM[2]);
-    EXPECT_LE(fabs(props.pressure-54048.2), epsM[0]);
-    EXPECT_LE(fabs(props.density-0.7364), epsM[4]);
-    EXPECT_LE(fabs(props.asound-320.545), epsM[2]);
+    EXPECT_NEAR(props.temperature, 255.675, epsM[2]);
+    EXPECT_NEAR(props.pressure, 54048.2, epsM[0]);
+    EXPECT_NEAR(props.density, 0.7364, epsM[4]);
+    EXPECT_NEAR(props.asound, 320.545, epsM[2]);
 }
 
 TEST(Models, Atmos25)
@@ -75,13 +75,13 @@ TEST(Models, Atmos25)
     //printRatios(ratios);
     //printProperties (props);
 
-    EXPECT_LE(fabs(ratios.sigma-0.032721), epsM[5]);
-    EXPECT_LE(fabs(ratios.delta-0.025158), epsM[5]);
-    EXPECT_LE(fabs(ratios.theta-0.7689), epsM[4]);
+    EXPECT_NEAR(ratios.sigma, 0.032721, epsM[5]);
+    EXPECT_NEAR(ratios.delta, 0.025158, epsM[5]);
+    EXPECT_NEAR(ratios.theta, 0.7689, epsM[4]);
 
-    EXPECT_LE(fabs(props.temperature-221.552), epsM[2]);
-    EXPECT_LE(fabs(props.pressure-2549.1), epsM[1]);
-    EXPECT_LE(fabs(props.density-0.04008), epsM[4]);
-    EXPECT_LE(fabs(props.asound-298.3892), epsM[3]);
+    EXPECT_NEAR(props.temperature, 221.552, epsM[2]);
+    EXPECT_NEAR(props.pressure, 2549.1, epsM[1]);
+    EXPECT_NEAR(props.density, 0.04008, epsM[4]);
+    EXPECT_NEAR(props.asound, 298.3892, epsM[3]);
 }
 
