@@ -1,32 +1,32 @@
-// Protected data and software implementation for class Cart3f.
+// Protected data and software implementation for class ${clasnm}.
 
-#ifndef _cart3_Cart3f_baseline_h_
-#define _cart3_Cart3f_baseline_h_
+#ifndef _${ns}_${clasnm}_baseline_h_
+#define _${ns}_${clasnm}_baseline_h_
 
-#ifdef _CART3F_DATA_DEFN
-#define _CART3F_DATA float elem[4]
+#ifdef _${CLASNM}_DATA_DEFN
+#define _${CLASNM}_DATA ${stype} elem[4]
     // Assist compiler in alignment; specify 4 instead of 3 elements.
-#endif // _CART3F_DATA_DEFN
+#endif // _${CLASNM}_DATA_DEFN
 
 #include <cmath>
 
-namespace cart3 {
+namespace ${ns} {
 
 // basic constructors and destructors
 
-inline Cart3f::Cart3f() { }
+inline ${clasnm}::${clasnm}() { }
 
-inline Cart3f::~Cart3f() { }
+inline ${clasnm}::~${clasnm}() { }
 
-inline Cart3f::Cart3f(float s0, float s1, float s2)
+inline ${clasnm}::${clasnm}(${stype} s0, ${stype} s1, ${stype} s2)
 {
     elem[0] = s0; elem[1] = s1; elem[2] = s2;
 }
 
 // copy constructor
 
-inline Cart3f&
-Cart3f::operator = (const Cart3f& v)
+inline ${clasnm}&
+${clasnm}::operator = (const ${clasnm}& v)
 {
     elem[0] = v.elem[0]; elem[1] = v.elem[1]; elem[2] = v.elem[2];
     return *this;
@@ -34,87 +34,87 @@ Cart3f::operator = (const Cart3f& v)
 
 // compound assignment operators
 
-inline Cart3f&
-Cart3f::operator += (const Cart3f& v)
+inline ${clasnm}&
+${clasnm}::operator += (const ${clasnm}& v)
 {
     elem[0] += v.elem[0]; elem[1] += v.elem[1]; elem[2] += v.elem[2];
     return *this;
 }
 
-inline Cart3f&
-Cart3f::operator -= (const Cart3f& v)
+inline ${clasnm}&
+${clasnm}::operator -= (const ${clasnm}& v)
 {
     elem[0] -= v.elem[0]; elem[1] -= v.elem[1]; elem[2] -= v.elem[2];
     return *this;
 }
 
-inline Cart3f&
-Cart3f::operator *= (const float s)
+inline ${clasnm}&
+${clasnm}::operator *= (const ${stype} s)
 {
     elem[0] *= s; elem[1] *= s; elem[2] *= s; 
     return *this;
 }
 
-inline Cart3f&
-Cart3f::operator /= (const float s)
+inline ${clasnm}&
+${clasnm}::operator /= (const ${stype} s)
 {
-    float si = 1.0 / s;
+    ${stype} si = 1.0 / s;
     elem[0] *= si; elem[1] *= si; elem[2] *= si; 
     return *this;
 }
 
 // index operators
 
-inline float&
-Cart3f::operator [] (int i)
+inline ${stype}&
+${clasnm}::operator [] (int i)
 {
     return elem[i];
 }
 
-inline float
-Cart3f::operator [] (int i) const
+inline ${stype}
+${clasnm}::operator [] (int i) const
 {
     return elem[i];
 }
 
 // binary operators - additive
 
-inline const Cart3f
-Cart3f::operator + (const Cart3f& v) const
+inline const ${clasnm}
+${clasnm}::operator + (const ${clasnm}& v) const
 {
-    Cart3f tmp;
+    ${clasnm} tmp;
     tmp.elem[0] = elem[0] + v.elem[0];
     tmp.elem[1] = elem[1] + v.elem[1];
     tmp.elem[2] = elem[2] + v.elem[2];
     return tmp;
 }
 
-inline const Cart3f
-Cart3f::operator - (const Cart3f& v) const
+inline const ${clasnm}
+${clasnm}::operator - (const ${clasnm}& v) const
 {
-    Cart3f tmp;
+    ${clasnm} tmp;
     tmp.elem[0] = elem[0] - v.elem[0];
     tmp.elem[1] = elem[1] - v.elem[1];
     tmp.elem[2] = elem[2] - v.elem[2];
     return tmp;
 }
 
-inline const Cart3f
-Cart3f::operator * (float s) const
+inline const ${clasnm}
+${clasnm}::operator * (${stype} s) const
 {
-    Cart3f tmp;
+    ${clasnm} tmp;
     tmp.elem[0] = elem[0] * s;
     tmp.elem[1] = elem[1] * s;
     tmp.elem[2] = elem[2] * s;
     return tmp;
 }
 
-inline const Cart3f
-Cart3f::operator / (float s) const
+inline const ${clasnm}
+${clasnm}::operator / (${stype} s) const
 {
     // TODO: if 's' is zero, then should anticipate divide by zero.
-    Cart3f tmp;
-    float si;
+    ${clasnm} tmp;
+    ${stype} si;
     si = 1.0/s;
     tmp.elem[0] = elem[0] * si;
     tmp.elem[1] = elem[1] * si;
@@ -122,32 +122,32 @@ Cart3f::operator / (float s) const
     return tmp;
 }
 
-inline const Cart3f
-Cart3f::operator ^ (const Cart3f& v) const
+inline const ${clasnm}
+${clasnm}::operator ^ (const ${clasnm}& v) const
 {
     // cross product
-    Cart3f tmp;
+    ${clasnm} tmp;
     tmp.elem[0] = elem[1] * v.elem[2];
     tmp.elem[1] = elem[2] * v.elem[0];
     tmp.elem[2] = elem[0] * v.elem[1];
     return tmp;
 }
 
-inline float
-Cart3f::operator * (const Cart3f& v) const
+inline ${stype}
+${clasnm}::operator * (const ${clasnm}& v) const
 {
     // dot product
-    float tmp;
+    ${stype} tmp;
     tmp  = elem[0] * v.elem[0];
     tmp += elem[1] * v.elem[1];
     tmp += elem[2] * v.elem[2];
     return tmp;
 }
 
-inline Cart3f
-operator * (const float s, const Cart3f& v)
+inline ${clasnm}
+operator * (const ${stype} s, const ${clasnm}& v)
 {
-    Cart3f tmp;
+    ${clasnm} tmp;
     tmp.elem[0] = v.elem[0] * s;
     tmp.elem[1] = v.elem[1] * s;
     tmp.elem[2] = v.elem[2] * s;
@@ -157,16 +157,16 @@ operator * (const float s, const Cart3f& v)
 
 // unary operators
 
-inline const Cart3f
-Cart3f::operator - () const
+inline const ${clasnm}
+${clasnm}::operator - () const
 {
-    return (Cart3f(-elem[0], -elem[1], -elem[2]));
+    return (${clasnm}(-elem[0], -elem[1], -elem[2]));
 }
 
 // comparison operators
 
 inline bool
-Cart3f::operator == (const Cart3f& v) const
+${clasnm}::operator == (const ${clasnm}& v) const
 {
     bool result;
     result = (
@@ -177,7 +177,7 @@ Cart3f::operator == (const Cart3f& v) const
 }
 
 inline bool
-Cart3f::operator != (const Cart3f& v) const
+${clasnm}::operator != (const ${clasnm}& v) const
 {
     bool result;
     result = (
@@ -188,7 +188,7 @@ Cart3f::operator != (const Cart3f& v) const
 }
 
 inline bool
-Cart3f::operator < (const Cart3f& v) const
+${clasnm}::operator < (const ${clasnm}& v) const
 {
     bool result;
     result = (
@@ -201,50 +201,50 @@ Cart3f::operator < (const Cart3f& v) const
 // set value functions
 //
 inline void
-Cart3f::set_zero()
+${clasnm}::set_zero()
 {
     elem[0] = 0.0f; elem[1] = 0.0f; elem[2] = 0.0f;
 }
 
 inline void
-Cart3f::set( float s0, float s1, float s2)
+${clasnm}::set( ${stype} s0, ${stype} s1, ${stype} s2)
 {
     elem[0] = s0; elem[1] = s1; elem[2] = s2;
 }
 
 inline void
-Cart3f::set( const Cart3f& v)
+${clasnm}::set( const ${clasnm}& v)
 {
     elem[0] = v.elem[0]; elem[1] = v.elem[1]; elem[2] = v.elem[2];
 }
 
 // length and normalization functions
 
-inline float
-Cart3f::length () const
+inline ${stype}
+${clasnm}::length () const
 {
-    float l2 = length2();
+    ${stype} l2 = length2();
     return sqrtf(l2);
 }
 
-inline float
-Cart3f::length2 () const
+inline ${stype}
+${clasnm}::length2 () const
 {
     return elem[0]*elem[0] + elem[1]*elem[1] + elem[2]*elem[2];
 }
 
-inline float
-Cart3f::normalize ()
+inline ${stype}
+${clasnm}::normalize ()
 {
-    float len = sqrtf(length2());
-    float si = 1.0f/len;
+    ${stype} len = sqrtf(length2());
+    ${stype} si = 1.0f/len;
     elem[0] *= si;
     elem[1] *= si;
     elem[2] *= si;
     return len;
 }
 
-} // namespace cart3
+} // namespace ${ns}
 
-#endif // _cart3_Cart3f_baseline_h_
+#endif // _${ns}_${clasnm}_baseline_h_
 
