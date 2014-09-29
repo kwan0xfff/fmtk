@@ -1,7 +1,7 @@
 // Protected data and software implementation for class Mat33f.
 
-#ifndef _cart_Mat33f_baseline_h_
-#define _cart_Mat33f_baseline_h_
+#ifndef _cart3_Mat33f_baseline_h_
+#define _cart3_Mat33f_baseline_h_
 
 #include <cmath>
 
@@ -195,5 +195,5 @@ Mat33f::operator != (const Mat33f& m) const
 
 } // namespace cart3
 
-#endif // _cart_Mat33f_baseline_h_
+#endif // _cart3_Mat33f_baseline_h_
 
