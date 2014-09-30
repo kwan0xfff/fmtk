@@ -13,21 +13,47 @@ for C as well.)
 from string import Template
 import sys
 
-def subst3f(templ):
+def substv3f(templ):
     "Produce text result of substituting Cart3f values in template tl."
-    result = templ.substitute(ns='cart3',
-        clasnm='Cart3f', CLASNM='CART3F', stype='float' )
+    result = templ.substitute(
+        ns='cart3', clasnm='Cart3f', CLASNM='CART3F',
+        stype='float',
+        sdesc='IEEE single precision floating point',
+    )
     return result
 
-def subst3d(templ):
+def substv3d(templ):
     "Produce text result of substituting Cart3d values in template tl."
-    result = templ.substitute(ns='cart3',
-        clasnm='Cart3d', CLASNM='CART3D', stype='double' )
+    result = templ.substitute(
+        ns='cart3', clasnm='Cart3d', CLASNM='CART3D',
+        stype='double',
+        sdesc='IEEE double precision floating point',
+    )
+    return result
+
+def substm3f(templ):
+    "Produce text result of substituting Mat33f values in template tl."
+    result = templ.substitute(
+        ns='cart3', clasnm='Mat33f', CLASNM='MAT33F',
+        stype='float', vtype='Cart3f',
+        sdesc='IEEE single precision floating point',
+    )
+    return result
+
+def substm3d(templ):
+    "Produce text result of substituting Mat33d values in template tl."
+    result = templ.substitute(
+        ns='cart3', clasnm='Mat33d', CLASNM='MAT33D',
+        stype='double', vtype='Cart3d',
+        sdesc='IEEE double precision floating point',
+    )
     return result
 
 substfuncmap = {
-    '3f': subst3f,
-    '3d': subst3d
+    'v3f': substv3f,
+    'v3d': substv3d,
+    'm3f': substm3f,
+    'm3d': substm3d,
 }
 
 def main():

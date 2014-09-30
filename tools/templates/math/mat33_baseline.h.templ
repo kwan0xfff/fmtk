@@ -1,0 +1,199 @@
+// Protected data and software implementation for class ${clasnm}.
+
+#ifndef _${ns}_${clasnm}_baseline_h_
+#define _${ns}_${clasnm}_baseline_h_
+
+#include <cmath>
+
+namespace ${ns} {
+
+// basic constructors and destructors
+
+inline ${clasnm}::${clasnm}() { }
+
+inline ${clasnm}::~${clasnm}() { }
+
+inline ${clasnm}::${clasnm}(
+        ${stype} s00, ${stype} s01, ${stype} s02,
+        ${stype} s10, ${stype} s11, ${stype} s12,
+        ${stype} s20, ${stype} s21, ${stype} s22)
+{
+    vec[0][0] = s00; vec[0][1] = s01; vec[0][2] = s02; vec[0][3] = 0.0;
+    vec[1][0] = s10; vec[1][1] = s11; vec[1][2] = s12; vec[1][3] = 0.0;
+    vec[2][0] = s20; vec[2][1] = s21; vec[2][2] = s22; vec[2][3] = 0.0;
+
+}
+
+inline ${clasnm}::${clasnm}(${vtype} v0, ${vtype} v1, ${vtype} v2)
+{
+    vec[0] = v0; vec[1] = v1; vec[2] = v2;
+}
+
+
+// copy constructor
+
+inline ${clasnm}&
+${clasnm}::operator = (const ${clasnm}& m)
+{
+    vec[0] = m.vec[0]; vec[1] = m.vec[1]; vec[2] = m.vec[2];
+    return *this;
+}
+
+// compound assignment operators
+
+inline ${clasnm}&
+${clasnm}::operator += (const ${clasnm}& m)
+{
+    vec[0] += m.vec[0]; vec[1] += m.vec[1]; vec[2] += m.vec[2];
+    return *this;
+}
+
+inline ${clasnm}&
+${clasnm}::operator -= (const ${clasnm}& m)
+{
+    vec[0] -= m.vec[0]; vec[1] -= m.vec[1]; vec[2] -= m.vec[2];
+    return *this;
+}
+
+inline ${clasnm}&
+${clasnm}::operator *= (const ${stype} s)
+{
+    vec[0] *= s; vec[1] *= s; vec[2] *= s;
+    return *this;
+}
+
+inline ${clasnm}&
+${clasnm}::operator /= (const ${stype} s)
+{
+    ${stype} si = 1.0 / s;
+    vec[0] *= si; vec[1] *= si; vec[2] *= si;
+    return *this;
+}
+
+// index operators
+
+inline ${vtype}&
+${clasnm}::operator [] (int i)
+{
+    return vec[i];
+}
+
+inline ${vtype}
+${clasnm}::operator [] (int i) const
+{
+    return vec[i];
+}
+
+// binary operators - additive
+
+inline const ${clasnm}
+${clasnm}::operator + (const ${clasnm}& m) const
+{
+    ${clasnm} tmp;
+    tmp.vec[0] = vec[0] + m.vec[0];
+    tmp.vec[1] = vec[1] + m.vec[1];
+    tmp.vec[2] = vec[2] + m.vec[2];
+    return tmp;
+}
+
+inline const ${clasnm}
+${clasnm}::operator - (const ${clasnm}& m) const
+{
+    ${clasnm} tmp;
+    tmp.vec[0] = vec[0] - m.vec[0];
+    tmp.vec[1] = vec[1] - m.vec[1];
+    tmp.vec[2] = vec[2] - m.vec[2];
+    return tmp;
+}
+
+// binary operators - multiplicative
+
+inline const ${clasnm}
+${clasnm}::operator * (${stype} s) const
+{
+    ${clasnm} tmp;
+    tmp.vec[0] = vec[0] * s;
+    tmp.vec[1] = vec[1] * s;
+    tmp.vec[2] = vec[2] * s;
+    return tmp;
+}
+
+inline const ${clasnm}
+${clasnm}::operator / (${stype} s) const
+{
+    // TODO: if 's' is zero, then should anticipate divide by zero.
+    ${clasnm} tmp;
+    ${stype} si;
+    si = 1.0/s;
+    tmp.vec[0] = vec[0] * si;
+    tmp.vec[1] = vec[1] * si;
+    tmp.vec[2] = vec[2] * si;
+    return tmp;
+}
+
+// binary operators - multiplicative - dot products
+
+inline const ${vtype}
+${clasnm}::operator * (const ${vtype}& v) const
+{
+    ${vtype} tmp;
+
+    for (int i=0; i<=dimen; ++i) {
+        tmp[i] = vec[i][0]*v[0] + vec[i][1]*v[1] + vec[i][2]*v[2];
+    }
+    return tmp;
+}
+
+inline const ${clasnm}
+${clasnm}::operator * (const ${clasnm}& m) const
+{
+    // matrix dot product
+    ${clasnm} tmp;
+
+    for (int i=0; i<=dimen; ++i) {
+        const ${vtype}& row = vec[i];
+        for (int j=0; j<=dimen; ++j) {
+            ${vtype} col = ${vtype}(m.vec[j][0], m.vec[j][1], m.vec[j][2]);
+            tmp.vec[i][j] = row * col;
+        }
+    }
+
+    return tmp;
+}
+
+// unary operators
+
+inline const ${clasnm}
+${clasnm}::operator - () const
+{
+    return (${clasnm}(-vec[0], -vec[1], -vec[2]));
+}
+
+// comparison operators
+
+inline bool
+${clasnm}::operator == (const ${clasnm}& m) const
+{
+    bool result;
+    result = (
+        (vec[0] == m.vec[0]) &&
+        (vec[1] == m.vec[1]) &&
+        (vec[2] == m.vec[2]));
+    return result;
+}
+
+inline bool
+${clasnm}::operator != (const ${clasnm}& m) const
+{
+    bool result;
+    result = (
+        (vec[0] != m.vec[0]) ||
+        (vec[1] != m.vec[1]) ||
+        (vec[2] != m.vec[2]));
+    return result;
+}
+
+} // namespace ${ns}
+
+#endif // _${ns}_${clasnm}_baseline_h_
+
