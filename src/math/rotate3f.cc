@@ -56,8 +56,8 @@ Cart3f rotateZ(float angle, Cart3f vec)
     Cart3f v1;
     float sin_a, cos_a;
 
-    sin_a = sin(angle);
-    cos_a = cos(angle);
+    sin_a = sinf(angle);
+    cos_a = cosf(angle);
 
     v1[0] =   cos_a*v0[0] + sin_a*v0[1];
     v1[1] = - sin_a*v0[0] + cos_a*v0[1];
