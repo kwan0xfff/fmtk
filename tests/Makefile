@@ -15,7 +15,8 @@ models_OBJS = $(models_SRCS:.cc=.o)
 models_TESTS = $(models_SRCS:.cc=.t)
 
 math_SRCS = math_cart3f_baseline.cc math_mat33f_baseline.cc \
-	math_interpbilinear.cc
+	    math_cart3d_baseline.cc \
+	    math_interpbilinear.cc
 math_OBJS = $(math_SRCS:.cc=.o)
 math_TESTS = $(math_SRCS:.cc=.t)
 
@@ -56,6 +57,7 @@ tests_lvl1:
 	$(models_LIBPATH) ./models_atmos.t
 	$(models_LIBPATH) ./models_motion.t
 	$(math_LIBPATH) ./math_cart3f_baseline.t
+	$(math_LIBPATH) ./math_cart3d_baseline.t
 	$(utils_LIBPATH) ./utils_time.t
 
 tests_lvl2:
