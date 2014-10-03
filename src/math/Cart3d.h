@@ -4,8 +4,8 @@
 #define _Cart3d_h_
 
 // data for baseline implementation
-#define _CART3F_DATA double elem[4]
-#define _MAT33F_DATA Cart3d vec[3]
+#define _CART3D_DATA double elem[4]
+#define _MAT33D_DATA Cart3d vec[3]
 
 #include "Cart3d_defn.h"
 #include "Mat33d_defn.h"
