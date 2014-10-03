@@ -1,5 +1,5 @@
 // ================================================================
-//  utility functions Rotate3f
+//  utility functions - rotation
 //  Elements are:  IEEE single precision floating point
 // ================================================================
 
