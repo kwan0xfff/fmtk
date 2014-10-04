@@ -45,13 +45,13 @@ const Mat33f matrix_twist = Mat33f(
     1.0, 1.0, 1.0,
     2.0, 1.0, 0.0);
 
-TEST(MathCartMat33Baseline, First)
+TEST(MathMat33fBaseline, First)
 {
     Mat33f a = matrix_ident;
     EXPECT_EQ(a, matrix_ident);  // deceptively simple, lots happening
 }
 
-TEST(MathCartMat33Baseline, Construct)
+TEST(MathMat33fBaseline, Construct)
 {
     // construct from scalars
     Mat33f a = Mat33f(
@@ -71,7 +71,7 @@ TEST(MathCartMat33Baseline, Construct)
     EXPECT_NE(b, matrix_zero);
 }
 
-TEST(MathCartMat33Baseline, CompoundAsgnAdd)
+TEST(MathMat33fBaseline, CompoundAsgnAdd)
 {
     Mat33f sum =  matrix_zero;
     sum += matrix_ident;
@@ -95,7 +95,7 @@ TEST(MathCartMat33Baseline, CompoundAsgnAdd)
 }
 
 
-TEST(MathCartMat33Baseline, CompoundAsgnMult)
+TEST(MathMat33fBaseline, CompoundAsgnMult)
 {
     Mat33f sum =  matrix_zero;
     Mat33f result = matrix_twist;
@@ -112,7 +112,7 @@ TEST(MathCartMat33Baseline, CompoundAsgnMult)
 }
 
 
-TEST(MathCartMat33Baseline, Index)
+TEST(MathMat33fBaseline, Index)
 {
     enum { x=0, y=1, z=2 };
     Mat33f a = Mat33f(
@@ -130,7 +130,7 @@ TEST(MathCartMat33Baseline, Index)
     EXPECT_EQ(a[z], Cart3f(2.0, 7.0, 8.0));
 }
 
-TEST(MathCartMat33Baseline, BinAdd)
+TEST(MathMat33fBaseline, BinAdd)
 {
     Mat33f result = matrix_ones + matrix_ident;
     EXPECT_EQ(result, Mat33f(
@@ -145,7 +145,7 @@ TEST(MathCartMat33Baseline, BinAdd)
             1.0, 1.0, 0.0 ));
 }
 
-TEST(MathCartMat33Baseline, BinMult)
+TEST(MathMat33fBaseline, BinMult)
 {
     Mat33f result = matrix_twist * 2.0;
     EXPECT_EQ(result, Mat33f(
@@ -161,7 +161,7 @@ TEST(MathCartMat33Baseline, BinMult)
 }
 
 
-TEST(MathCartMat33Baseline, BinMultDot)
+TEST(MathMat33fBaseline, BinMultDot)
 {
     Mat33f rot30cclock = Mat33f(
         // rotate 30 degrees (pi/6) counterclockwise
@@ -184,7 +184,7 @@ TEST(MathCartMat33Baseline, BinMultDot)
     EXPECT_EQ(mresult, rot30cclock);
 }
 
-TEST(MathCartMat33Baseline, Unary)
+TEST(MathMat33fBaseline, Unary)
 {
     Mat33f result = -matrix_twist;
     EXPECT_EQ(result, Mat33f(
