@@ -66,7 +66,7 @@ TEST(MathCart3dBaseline, Index)
     EXPECT_EQ(a[y], 1.0);
     EXPECT_EQ(a[z], 2.0);
 
-    float a2 = a[x];
+    double a2 = a[x];
     EXPECT_EQ(a2, 0.0);
     a[z] = a[x];
     EXPECT_EQ(a[2], 0.0);
@@ -106,7 +106,7 @@ TEST(MathCart3dBaseline, BinMultCross)
 
 TEST(MathCart3dBaseline, BinMultDot)
 {
-    float result = vector_100 * vector_010;
+    double result = vector_100 * vector_010;
     EXPECT_EQ(result, 0.0);
 }
 
