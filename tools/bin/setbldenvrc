@@ -1,0 +1,34 @@
+#!/bin/sh
+# set local build environment
+# Source this script at top of build tree (BUILDROOT),  e.g.,
+#   $ . setbldenvrc
+#
+
+echo Put this script in your FMTK target build directory \(BUILDROOT\).
+# This script sets the BUILDROOT and DLSFX environment variables to be
+# used by 'make'.
+
+echo In fact, hand-craft it to export the proper BUILDROOT and DLSFX.
+# For example...
+#   export BUILDROOT=$(pwd)
+#   export DLSFX=so
+# The rest of this script can be removed.
+
+echo Use \". setbldenvrc\" to invoke.
+# or 'source setbldenvrc'.
+# The resulting values need to be inherited into the invoking environment.
+# You should later be able to execute
+#   echo $DLSFX
+# and see the value that was set.
+
+HOSTOS=$(uname)
+
+BUILDROOT=$(pwd)
+[ "$HOSTOS" = "Linux" ] && DLSFX=so
+[ "$HOSTOS" = "Darwin" ] && DLSFX=dylib
+if [ -z "$DLSFX" ]; then
+    echo "ERROR: cannot detect host OS type; should be Linux or Darwin"
+    exit 1
+fi
+
+export BUILDROOT DLSFX
