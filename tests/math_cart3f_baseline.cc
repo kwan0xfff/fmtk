@@ -25,14 +25,14 @@ const Cart3f vector_010 = Cart3f(0.0, 1.0, 0.0);
 const Cart3f vector_001 = Cart3f(0.0, 0.0, 1.0);
 const Cart3f vector_zero = Cart3f(0.0, 0.0, 0.0);
 
-TEST(MathCartBaseline, First)
+TEST(MathCart3fBaseline, First)
 {
     Cart3f a = Cart3f(0.0, 1.0, 2.0);
     EXPECT_EQ(a[0], 0.0);
     print_cart3f(a);
 }
 
-TEST(MathCartBaseline, CompoundAsgnAdd)
+TEST(MathCart3fBaseline, CompoundAsgnAdd)
 {
     Cart3f sum =  vector_345;
     sum += vector_100;
@@ -47,7 +47,7 @@ TEST(MathCartBaseline, CompoundAsgnAdd)
     EXPECT_EQ(diff, Cart3f(2.0, 4.0, 5.0));
 }
 
-TEST(MathCartBaseline, CompoundAsgnMult)
+TEST(MathCart3fBaseline, CompoundAsgnMult)
 {
     Cart3f result = vector_345;
     result *= 2.0;
@@ -57,7 +57,7 @@ TEST(MathCartBaseline, CompoundAsgnMult)
     EXPECT_EQ(result, Cart3f(3.0, 4.0, 5.0));
 }
 
-TEST(MathCartBaseline, Index)
+TEST(MathCart3fBaseline, Index)
 {
     enum { x=0, y=1, z=2 };
     Cart3f a = Cart3f(0.0, 1.0, 2.0);
@@ -72,7 +72,7 @@ TEST(MathCartBaseline, Index)
     EXPECT_EQ(a, Cart3f(0.0, 1.0, 0.0));
 }
 
-TEST(MathCartBaseline, BinAdd)
+TEST(MathCart3fBaseline, BinAdd)
 {
     Cart3f result = vector_100 + vector_010;
     EXPECT_EQ(result, Cart3f(1.0, 1.0, 0.0));
@@ -81,7 +81,7 @@ TEST(MathCartBaseline, BinAdd)
     EXPECT_EQ(result, Cart3f(1.0, -1.0, 0.0));
 }
 
-TEST(MathCartBaseline, BinMult)
+TEST(MathCart3fBaseline, BinMult)
 {
     Cart3f result = vector_345 * 2.0;
     EXPECT_EQ(result, Cart3f(6.0, 8.0, 10.0));
@@ -90,26 +90,26 @@ TEST(MathCartBaseline, BinMult)
     EXPECT_EQ(result, Cart3f(1.5, 2.0, 2.5));
 }
 
-TEST(MathCartBaseline, BinMultSV)
+TEST(MathCart3fBaseline, BinMultSV)
 {
     // friend: scalar * vector
     Cart3f result = 2.0 * vector_345;
     EXPECT_EQ(result, Cart3f(6.0, 8.0, 10.0));
 }
 
-TEST(MathCartBaseline, BinMultCross)
+TEST(MathCart3fBaseline, BinMultCross)
 {
     Cart3f result = vector_100 ^ vector_010;
     EXPECT_EQ(result, vector_001);
 }
 
-TEST(MathCartBaseline, BinMultDot)
+TEST(MathCart3fBaseline, BinMultDot)
 {
     float result = vector_100 * vector_010;
     EXPECT_EQ(result, 0.0);
 }
 
-TEST(MathCartBaseline, Unary)
+TEST(MathCart3fBaseline, Unary)
 {
     Cart3f result = -vector_345;
     EXPECT_EQ(result, Cart3f(-3.0, -4.0, -5.0));
