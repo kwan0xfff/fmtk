@@ -6,6 +6,7 @@
 
 import os, os.path
 import sys
+import shutil
 #import pdb              ### DEBUGGING
 
 def add_dir(dirpath):
@@ -32,7 +33,7 @@ def add_link(source, linkpath):
     if os.path.exists(linkpath):
         print("file exists", linkpath)
     else:
-        print("do link", source, "to", linkpath)
+        #print("Link", source, "to", linkpath)
         os.symlink(source, linkpath)
 
 def provide(spec):
@@ -69,21 +70,34 @@ def provide(spec):
     os.chdir(paths['fmtkroot'])
     pathbuild = paths['build']
     pathroot = paths['fmtkroot']
-    for topdir in ('conf', 'docs', 'src', 'tests', 'cmds', 'Makefile'):
-        for relpath, dirs, files in os.walk(topdir):
+    topcomponents = ['conf', 'docs', 'src', 'tests', 'cmds']
+    optionals = [ 'exptcmds', ]
+    for candidate in optionals:
+        if os.path.exists(candidate):
+            topcomponents.append(candidate)
+    topcomponents.append("Makefile")
+    for component in topcomponents:
+        for relpath, dirs, files in os.walk(component):
             for fname in ('Makefile', 'conf.mk'):
                 if fname in files:
                     src = os.path.join(pathroot, relpath, fname)
                     trg = os.path.join(pathbuild, relpath, fname)
                     trgdir = os.path.join(pathbuild, relpath)
-                    print ('...', trg)
+                    #print ('...', trg)
                     if not os.path.isdir(trgdir) and not os.path.exists(trgdir):
                         os.makedirs(trgdir)
-                    os.symlink(src, trg)
+
+                    shutil.copyfile(src, trg)
     fname = 'Makefile'  # get top-level Makefile
     src = os.path.join(pathroot, fname)
     trg = os.path.join(pathbuild, fname)
-    print ('...', trg)
-    os.symlink(src, trg)
+    #print ('...', trg)
+    shutil.copyfile(src, trg)
+
+    src = os.path.join(pathroot, "tools/bin/setbldenvrc")
+    trg = os.path.join(pathbuild, "setbldenvrc")
+    print ("copy setbldenvrc")
+    shutil.copyfile(src, trg)
+
 
 # vim: set sw=4 tw=80 :
