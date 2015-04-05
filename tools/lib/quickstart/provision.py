@@ -31,7 +31,7 @@ def add_link(source, linkpath):
     if cwd in linkpath:
         linkpath = os.path.relpath(linkpath, cwd)
     if os.path.exists(linkpath):
-        print("file exists", linkpath)
+        print("WARN: Path exists:", linkpath)
     else:
         #print("Link", source, "to", linkpath)
         os.symlink(source, linkpath)
@@ -66,7 +66,7 @@ def provide(spec):
     if os.path.normpath(paths['build']) == os.path.normpath(paths['fmtkroot']):
         return
 
-    print("Copy makefiles")
+    print("Link makefiles")
     os.chdir(paths['fmtkroot'])
     pathbuild = paths['build']
     pathroot = paths['fmtkroot']
@@ -87,16 +87,18 @@ def provide(spec):
                     if not os.path.isdir(trgdir) and not os.path.exists(trgdir):
                         os.makedirs(trgdir)
 
-                    shutil.copyfile(src, trg)
+                    #shutil.copyfile(src, trg)
+                    add_link(src, trg)
     fname = 'Makefile'  # get top-level Makefile
     src = os.path.join(pathroot, fname)
     trg = os.path.join(pathbuild, fname)
     #print ('...', trg)
-    shutil.copyfile(src, trg)
+    #shutil.copyfile(src, trg)
+    add_link(src, trg)
 
     src = os.path.join(pathroot, "tools/bin/setbldenvrc")
     trg = os.path.join(pathbuild, "setbldenvrc")
-    print ("copy setbldenvrc")
+    print ("Copy setbldenvrc")
     shutil.copyfile(src, trg)
 
 
