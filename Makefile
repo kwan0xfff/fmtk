@@ -3,6 +3,7 @@
 #
 
 SUBDIRS = src tests cmds
+#SUBDIRS += exptcmds	# experimental commands
 
 all clean : conf_targets
 	for subdir in $(SUBDIRS); do \
