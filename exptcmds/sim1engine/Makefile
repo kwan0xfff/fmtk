@@ -1,10 +1,10 @@
 # Makefile for models
 
 include ../../conf/conf.mk
-INCLS += -I.. -I../../tksrc/cmds
+INCLS += -I.. -I../../tksrc/exptcmds
 
-vpath %.h  ../../tksrc/cmds/sim1engine ../../conf/dep/include
-vpath %.cc ../../tksrc/cmds/sim1engine
+vpath %.h  ../../tksrc/exptcmds/sim1engine ../../conf/dep/include
+vpath %.cc ../../tksrc/exptcmds/sim1engine
 
 SRCS = SimEngine.cc
 OBJS = $(SRCS:.cc=.o)

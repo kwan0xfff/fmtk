@@ -2,10 +2,10 @@
 #
 
 include ../../conf/conf.mk
-INCLS += -I.. -I../../tksrc/cmds
+INCLS += -I.. -I../../tksrc/exptcmds
 
-vpath %.h  ../../tksrc/cmds/sim1scenarios ../../conf/dep/include
-vpath %.cc ../../tksrc/cmds/sim1scenarios
+vpath %.h  ../../tksrc/exptcmds/sim1scenarios ../../conf/dep/include
+vpath %.cc ../../tksrc/exptcmds/sim1scenarios
 
 LIBS += -L$(BUILDROOT)/conf/dep/lib -lfmtkModels -lfmtkMath -lfmtkUtils
 
