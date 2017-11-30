@@ -32,7 +32,7 @@ Fundmentally, this breaks down to the following tools:
 * GNU Make - make 3.81
 * Compiler toolchain -- one of
 
-  * Apple LLVM 5.1 (Mac OS X)
+  * Apple LLVM 5.1 (Mac OS X) (latest test: 9.0.0)
   * GCC 4.6.x or 4.7.x (Ubuntu)
 
 Configuring the target build tree is supported by ``fmtk-qs``.
@@ -107,17 +107,20 @@ Things to do:
   or for the more adverturous, ``build`` to build in a separate build tree.
   For ``Cart3d implementation``: choose ``baseline``.  (More details below.)
 
-* Build everything.  Go to the build diretory, and then...::
-
-    $ make
-
+* Define key environment variables.
   Very likely you will need to define ``BUILDROOT`` and ``DLSFX``.
   At the top of newly generated build tree, you can set::
 
     $ export BUILDROOT=$(pwd)
 
   The dynamic library suffix ``DLSFX`` should be set to the ``so`` or
-  ``dylib``, depending on your target platform.
+  ``dylib``, depending on your target platform. For example, ::
+
+    $ export DLSFX=dylib   # macOS
+
+* Build everything.  Go to the build diretory, and then...::
+
+    $ make
 
 * Run the unit tests.  From the root of build tree::
 
@@ -133,7 +136,14 @@ Things to do:
     $ cat atmos.txt         # show the table
     $ diff refdata/atmos-ref.txt atmos.txt
                             # list any differences from golden reference
-    $ make drop1            # drop test (no aero)
+    # path to ref might need to go through ../tksrc/cmds; hence:
+    # diff ../tksrc/cmds/refdata/atmos-ref.txt atmos.txt
+
+* To see an simple trajectory, go to 'exptcmds' directory.
+  Then build and try it out::
+
+    $ cd $BUILDROOT/exptcmds
+    $ make run              # runs drop test (no aero)
     $ cat SimpleDrop.log    # drop trajectory
 
 Quick-start
