@@ -18,6 +18,7 @@ This include includes:
   complete source trees.
 
 A quick-start script ``fmtk-qs`` is available to handle much of the configuration.
+(See "Manual Build" and "Quick-start" below.)
 
 Toolchain
 ---------
@@ -152,17 +153,17 @@ Quick-start
 The quick-start script ``tools/fmtk-qs``, written in Python 3,
 is designed to help quickly get a usable build environment started.
 
-To use it, at the top of the source tree:
+* We'll assume here that the libraries and executables will go into
+  a new subdirectory named ``build``.  Set this up first. ::
 
-* Put in a symlink from ``tksrc`` to the current directory, e.g., ::
-
-    $ ln -s . tksrc
+    $ mkdir build
+    $ cd build
 
 * Find the Google C++ test framework ("gtest") root,
   determine the shared library type (``dylib`` or ``so``).
-  Then create the dependency tree using ``tools/fmtk-qs`` doing something like::
+  Then create the dependency tree using ``tools/fmtk-qs`` ::
 
-    $ ./tools/fmtk-qs -q -r $(pwd) -g ${GTEST}/include -G ${GTEST}/lib -s dylib
+    $ ../tools/fmtk-qs -q -r $(pwd) -g ${GTEST}/include -G ${GTEST}/lib -s dylib
 
   Without ``-q``, the script will allow you to interactively enter the values.
 
