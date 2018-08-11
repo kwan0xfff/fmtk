@@ -5,13 +5,15 @@
 #
 
 echo Put this script in your FMTK target build directory \(BUILDROOT\).
-# This script sets the BUILDROOT and DLSFX environment variables to be
-# used by 'make'.
+# This script sets the BUILDROOT, DLSFX, and a library path environment variable
+# to be used by 'make' and command line.
 
-echo In fact, hand-craft it to export the proper BUILDROOT and DLSFX.
-# For example...
+echo In fact, hand-craft it to export the proper BUILDROOT, DLSFX,
+echo and library values.
+# For example, for Linux,
 #   export BUILDROOT=$(pwd)
 #   export DLSFX=so
+#   export LD_LIBRARY_PATH=${BUILDROOT}/conf/dep/lib
 # The rest of this script can be removed.
 
 echo Use \". setbldenvrc\" to invoke.
@@ -22,10 +24,18 @@ echo Use \". setbldenvrc\" to invoke.
 # and see the value that was set.
 
 HOSTOS=$(uname)
-
 BUILDROOT=$(pwd)
-[ "$HOSTOS" = "Linux" ] && DLSFX=so
-[ "$HOSTOS" = "Darwin" ] && DLSFX=dylib
+
+if [ "$HOSTOS" = "Linux" ]; then
+    DLSFX=so
+    LD_LIBRARY_PATH=${BUILDROOT}/conf/dep/lib
+    export LD_LIBRARY_PATH
+fi
+if [ "$HOSTOS" = "Darwin" ]; then
+    DLSFX=dylib
+    DYLD_LIBRARY_PATH=${BUILDROOT}/conf/dep/lib
+    export DYLD_LIBRARY_PATH
+fi
 if [ -z "$DLSFX" ]; then
     echo "ERROR: cannot detect host OS type; should be Linux or Darwin"
     exit 1
