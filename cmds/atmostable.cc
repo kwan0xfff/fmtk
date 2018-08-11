@@ -44,6 +44,11 @@ int main(int argc, const char *argv[])
     FILE* fout;
     const char* fname;
 
+    if (argc < 2) {
+        fprintf(stderr, "missing output filename\n");
+        return 1;
+    }
+
     fname = argv[1];
     fout = fopen(fname, "w");
     SITable(fout);
